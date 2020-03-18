@@ -1,4 +1,4 @@
-# [GoodBooks](https://intense-tor-95063.herokuapp.com/search)
+# [GoodBooks](https://intense-tor-95063.herokuapp.com)
 
 ### API:
 Our API is the Goodreads API. Using this API, we intend to allow users to search for their favorite books, authors, and reviews, as well as interact with said books, authors, and reviews. At the current moment in time, we are only able to search books. The following API methods are currently included (though not all are used) in our prototype:
