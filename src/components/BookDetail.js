@@ -1,5 +1,6 @@
 import React from 'react'
 import {findDetailByBookId} from '../services/BookService'
+import {AuthorListComponent} from './AuthorListComponent'
 
 class BookDetail extends React.Component {
   constructor(props) {
@@ -31,6 +32,7 @@ class BookDetail extends React.Component {
             <div>
                 <img src={this.state.book.image_url}></img>
                 <h3>{this.state.book.title}</h3>
+                <AuthorListComponent authors={this.state.book.authors}/>
                 <div dangerouslySetInnerHTML={this.description()}/>
             </div>
         )

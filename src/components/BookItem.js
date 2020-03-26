@@ -11,6 +11,7 @@ class BookItem extends React.Component {
     }
 
     render() {
+        console.log(this.state.book);
         return (
             <div>
                 <img src={this.state.book.small_image_url} aligh='left'></img>
