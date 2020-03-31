@@ -1,8 +1,8 @@
 
-const URL = "http://localhost:4000/api"//"https://salty-dawn-90176.herokuapp.com/api/"
-const USER_URL = "http://localhost:4000/api/user/"
-const CURRENT_USER_URL = "http://localhost:4000/api/current/"
-const USERNAME_URL = "http://localhost:4000/api/username/"
+const URL = "https://salty-dawn-90176.herokuapp.com/api/"
+const USER_URL = "https://salty-dawn-90176.herokuapp.com/api/user/"
+const CURRENT_USER_URL = "https://salty-dawn-90176.herokuapp.com/api/current/"
+const USERNAME_URL = "https://salty-dawn-90176.herokuapp.com/api/username/"
 
 export const createUser = async (user) => {
     try {
