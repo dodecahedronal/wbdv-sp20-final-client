@@ -49,6 +49,8 @@ export default class BookApp extends Component {
 
                 {this.state.currentUser != null &&
                     <div>
+                        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"/>
+                        <div className="nav-brand row">Home</div>
                         <br></br>
                         <h3>{this.state.currentUser.username} logged in</h3>
                         <button onClick={() => this.logout()}>Logout</button>

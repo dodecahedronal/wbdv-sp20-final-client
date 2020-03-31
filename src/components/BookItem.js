@@ -1,5 +1,6 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
+import './Book.css'
 
 class BookItem extends React.Component {
     constructor(props) {
@@ -13,7 +14,7 @@ class BookItem extends React.Component {
     render() {
         console.log(this.state.book);
         return (
-            <div>
+            <div className="book-item">
                 <img src={this.state.book.small_image_url} aligh='left'></img>
                 <Link to={`/detail/${this.state.book.id}`}>
                     {this.state.book.title}

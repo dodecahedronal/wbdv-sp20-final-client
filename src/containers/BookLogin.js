@@ -57,7 +57,10 @@ export default class BookLogin extends Component {
         else {
             return (
                 <div className="container">
+                    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"/>
+                    <div className="nav-brand row">
                     <h1>Login</h1>
+                    </div>
                     <form>
                         <div className="form-group row">
                             <label className="col-sm-2 col-form-label">

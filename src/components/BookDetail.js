@@ -29,8 +29,14 @@ class BookDetail extends React.Component {
         return ("<div> Loading </div>");
     else
         return (
-            <div>
-                <img src={this.state.book.image_url}></img>
+            <div className="book-detail">
+                <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"/>
+                <div className="nav-brand row">
+                    <a className="return-to-search" href="/search/">
+                        Back to Search
+                    </a>
+                </div>
+                <img className="book-cover-img" src={this.state.book.image_url}></img>
                 <h3>{this.state.book.title}</h3>
                 <AuthorListComponent authors={this.state.book.authors}/>
                 <div dangerouslySetInnerHTML={this.description()}/>

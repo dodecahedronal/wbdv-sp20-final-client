@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {findBooks, findDetailByBookId, findReviewsByTitle} from '../services/BookService'
 import BookItem from '../components/BookItem'
+import '../components/Book.css'
 
 export default class GoodRead extends Component {
     constructor() {
@@ -46,10 +47,13 @@ export default class GoodRead extends Component {
     render() {
         return(
             <div className="container-fluid">
-                <h2>Book Search</h2>
-                <input onChange={this.titleChanged} />
-                <button onClick={() => this.findBook()}>Find</button>
-                {
+                <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"/>
+                <div className="nav-brand row">
+                    <h2 className="col-md-3">Book Search</h2>
+                    <input onChange={this.titleChanged} className="col-md-5"/>
+                    <button onClick={() => this.findBook()} className="col-md-2">Find</button>
+                </div>
+                {   this.state.books.length > 1 ?
                     this.state.books.map(
                         (book) => {
                             return (
@@ -60,7 +64,10 @@ export default class GoodRead extends Component {
                                         this.findDetailByBookId(book.id)
                                     }}
                                 />
-                            )})
+                            )}) :
+                    <div className="search-placeholder">
+                        Type in the search bar to begin searching!
+                    </div>
                 }
             </div>
         )

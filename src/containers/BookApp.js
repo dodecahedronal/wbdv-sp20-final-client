@@ -7,6 +7,7 @@ import BookRegister from './BookRegister'
 import BookSearch from './BookSearch'
 import BookDetail from '../components/BookDetail'
 import Profile from './Profile'
+import {AuthorDetailComponent} from "../components/AuthorDetailComponent";
 
 export default class BookApp extends Component {
     constructor() {
@@ -29,6 +30,7 @@ export default class BookApp extends Component {
                         <Route path="/profile" component={Profile}/>
                         <Route path="/search" component={BookSearch}/>
                         <Route path="/detail/:id" exact component={BookDetail}/>
+                        <Route path="/author/:id" exact component={AuthorDetailComponent}/>
                     </div>
                 </Router>
             </div>
