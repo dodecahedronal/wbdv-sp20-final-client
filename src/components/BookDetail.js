@@ -1,6 +1,16 @@
 import React from 'react'
 import {findDetailByBookId} from '../services/BookService'
 import {AuthorListComponent} from './AuthorListComponent'
+import ThreadListComponent from './ThreadListComponent'
+import {combineReducers, createStore} from "redux";
+import {Provider} from "react-redux";
+import threadReducer from '../reducers/ThreadReducer';
+
+const rootReducer = combineReducers({
+  threads: threadReducer
+})
+
+const store = createStore(rootReducer)
 
 class BookDetail extends React.Component {
   constructor(props) {
@@ -29,6 +39,7 @@ class BookDetail extends React.Component {
         return ("<div> Loading </div>");
     else
         return (
+          <Provider store={store}>
             <div className="book-detail">
                 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"/>
                 <div className="nav-brand row">
@@ -40,7 +51,9 @@ class BookDetail extends React.Component {
                 <h3>{this.state.book.title}</h3>
                 <AuthorListComponent authors={this.state.book.authors}/>
                 <div dangerouslySetInnerHTML={this.description()}/>
+                <ThreadListComponent bookId={this.state.bookId}/>
             </div>
+            </Provider>
         )
   }
 }
