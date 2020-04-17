@@ -1,11 +1,11 @@
 import React from "react";
 import threadService from "../services/ThreadService";
-import {createThread, findThreadsForBook} from "../actions/threadActions";
+import {createThread, findThreadsForBook, deleteThread} from "../actions/threadActions";
 import {connect} from "react-redux";
 
 class ThreadListComponent extends React.Component {
     state = {
-        currentTitle: "New Comment",
+        currentTitle: "New Thread",
     }
 
     componentDidMount() {
@@ -22,21 +22,26 @@ class ThreadListComponent extends React.Component {
                         })}
                         value={this.state.currentTitle}/>
                     <button onClick={() =>{
-                        const thread = {subject: this.state.currentTitle, bookId: this.props.bookId}
+                        const thread = {subject: this.state.currentTitle, bookId: this.props.bookId, username: this.props.cookies.get('username'), userId: this.props.cookies.get('uid')}
                         this.props.createThread(thread)
-                        this.setState({currentTitle: "New Comment"})
+                        this.setState({currentTitle: "New Thread"})
                     }}></button>
                 </li>
                     {this.props.threads.map(thread =>
-                    <li className="thread" key={thread._id}>{thread.subject}</li>)}
+                    <li className="thread" key={thread._id}>
+                        {thread.subject}
+                        {thread.username}
+                        {this.props.cookies.get('uid') === thread.userId && <button onClick={()=>this.props.deleteThread(thread._id)}>Delete</button>}
+                    </li>)}
                 </div>
         )
     }
 }
 
-const stateToPropertyMapper = (state) => {
+const stateToPropertyMapper = (state, ownProps) => {
     return {
-        threads: state.threads.threads
+        threads: state.threads.threads,
+        cookies: ownProps.cookies
     }
 }
 
@@ -49,7 +54,11 @@ const dispatchToPropertyMapper = (dispatch) => {
         createThread: (thread) => 
             threadService.createThread(thread)
                 .then(actualThread =>
-            dispatch(createThread(actualThread)))
+            dispatch(createThread(actualThread))),
+
+        deleteThread: (threadId) =>
+            threadService.deleteThread(threadId)
+                    .then(status => dispatch(deleteThread(threadId)))
         
     }
 }

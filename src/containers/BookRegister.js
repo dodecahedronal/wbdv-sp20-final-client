@@ -43,7 +43,7 @@ export default class BookRegister extends Component {
         let user = {
             username: this.state.username,
             password: this.state.password,
-            role: 'Reader'
+            role: 'USER'
         }
         if (this.state.password != this.state.verifyPassword) {
             this.setState({

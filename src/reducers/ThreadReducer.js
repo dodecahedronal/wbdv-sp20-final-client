@@ -1,4 +1,4 @@
-import {CREATE_THREAD, FIND_THREADS_FOR_BOOK} from "../actions/threadActions.js";
+import {CREATE_THREAD, FIND_THREADS_FOR_BOOK, DELETE_THREAD} from "../actions/threadActions.js";
 
 const initialState = {
     threads: []
@@ -16,6 +16,10 @@ const threadReducer = (state = initialState, action) => {
                     ...state.threads,
                     action.newThread
                 ]
+            }
+        case DELETE_THREAD:
+            return {
+                threads: state.threads.filter(thread => thread._id !== action.threadId)
             }
         default:
             return state
