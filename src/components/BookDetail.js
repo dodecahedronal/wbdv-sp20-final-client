@@ -1,6 +1,7 @@
 import React from 'react'
 import {findDetailByBookId} from '../services/BookService'
 import {AuthorListComponent} from './AuthorListComponent'
+import ThreadListComponent from './ThreadListComponent'
 
 class BookDetail extends React.Component {
   constructor(props) {
@@ -35,11 +36,13 @@ class BookDetail extends React.Component {
                     <a className="return-to-search" href="/search/">
                         Back to Search
                     </a>
+                    <span>Hi there {this.props.cookies.get('username')} </span>
                 </div>
                 <img className="book-cover-img" src={this.state.book.image_url}></img>
                 <h3>{this.state.book.title}</h3>
                 <AuthorListComponent authors={this.state.book.authors}/>
                 <div dangerouslySetInnerHTML={this.description()}/>
+                <ThreadListComponent bookId={this.state.bookId} cookies={this.props.cookies}/>
             </div>
         )
   }
