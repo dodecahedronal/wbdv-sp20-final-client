@@ -23,7 +23,7 @@ export default class BookApp extends Component {
             <div className="container-fluid">
                 <Router>
                     <div>
-                        <Route path="/" exact component={BookHome}/>
+                        <Route path="/" exact component={BookSearch}/>
                         <Route path="/home" component={BookHome}/>
                         <Route path="/login" component={BookLogin}/>
                         <Route path="/register" exact component={BookRegister}/>
@@ -31,6 +31,8 @@ export default class BookApp extends Component {
                         <Route path="/search" component={BookSearch}/>
                         <Route path="/detail/:id" exact component={BookDetail}/>
                         <Route path="/author/:id" exact component={AuthorDetailComponent}/>
+                        <Route path="/profile/comments" exact component={Profile}/>
+                        <Route path="/profile/threads" exact component={Profile}/>
                     </div>
                 </Router>
             </div>

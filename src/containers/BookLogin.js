@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {Redirect} from 'react-router-dom'
 import {login} from '../services/UserService'
+import './BookAuth.css'
 
 export default class BookLogin extends Component {
     constructor() {
@@ -61,7 +62,7 @@ export default class BookLogin extends Component {
                     <div className="nav-brand row">
                     <h1>Login</h1>
                     </div>
-                    <form>
+                    <form className="info-form">
                         <div className="form-group row">
                             <label className="col-sm-2 col-form-label">
                                 Username
@@ -90,6 +91,9 @@ export default class BookLogin extends Component {
                                 <button className="btn btn-primary btn-block" onClick={this.login}>
                                     Login
                             </button>
+                            </div>
+                            <div>
+                                Don't have an account? <a href="/register">Register here!</a>
                             </div>
                         </div>
                     </form>
