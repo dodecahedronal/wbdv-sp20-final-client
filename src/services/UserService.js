@@ -1,8 +1,7 @@
-
-const URL = "http://localhost:4000/api/"
-const USER_URL = "http://localhost:4000/api/user/"
-const CURRENT_USER_URL = "http://localhost:4000/api/current/"
-const USERNAME_URL = "http://localhost:4000/api/username/"
+const URL = 'http://localhost:4000/api/';//"https://salty-dawn-90176.herokuapp.com/api/"
+const USER_URL = 'http://localhost:4000/api/user/';//"https://salty-dawn-90176.herokuapp.com/api/user/"
+const CURRENT_USER_URL = 'http://localhost:4000/api/current/';//"https://salty-dawn-90176.herokuapp.com/api/current/"
+const USERNAME_URL = 'http://localhost:4000/api/username/';//"https://salty-dawn-90176.herokuapp.com/api/username/"
 
 export const createUser = async (user) => {
     try {
@@ -14,8 +13,9 @@ export const createUser = async (user) => {
             },
             credentials: 'include'
 
-        })
-        return await response.json()
+        });
+        console.log(response)
+        return await response.json();
     }catch(err){
         console.log(err)
     }
@@ -48,15 +48,43 @@ export const logout = async () =>
         credentials: 'include'
     })
 
-export const currentUser = async(user) => {
+export const currentUser = async() => {
     let response = await fetch(CURRENT_USER_URL, {
         credentials: 'include'
     })
     return await response.json()
 }
 
+export const updateUser = async(user) => {
+    try {
+        let response = await fetch(URL + 'profile', {
+            method: 'PUT',
+            body: JSON.stringify(user),
+            headers: {
+                'content-type': 'application/json'
+            },
+            credentials: 'include'
+
+        });
+        console.log(response)
+        return await response.json();
+    }catch(err){
+        console.log(err)
+    }
+}
+
 export const findUserByUsername = (uname) =>
     fetch(USERNAME_URL + uname).then(response => response.json())
 
 export const findUserById = (uid) =>
-    fetch(USER_URL + uid).then(response => response.json())
+    fetch(USER_URL + uid).then(response => response.json());
+
+export default {
+    createUser,
+    logout,
+    currentUser,
+    login,
+    findUserByUsername,
+    findUserById,
+    updateUser,
+}

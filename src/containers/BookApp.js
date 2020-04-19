@@ -32,6 +32,8 @@ class BookApp extends Component {
                         <Route path="/search" render={props => (<BookSearch {...props} cookies={this.props.cookies}/>)}/>
                         <Route path="/detail/:id" exact render={props => (<BookDetail {...props} cookies={this.props.cookies}/>)}/>
                         <Route path="/author/:id" exact render={props => (<AuthorDetailComponent {...props} cookies={this.props.cookies}/>)}/>
+                        <Route path="/profile/comments" exact component={Profile}/>
+                        <Route path="/profile/threads" exact component={Profile}/>
                     </div>
                 </Router>
             </div>

@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {findBooks, findDetailByBookId, findReviewsByTitle} from '../services/BookService'
 import BookItem from '../components/BookItem'
 import '../components/Book.css'
+import {LoginComponent} from "../components/LoginComponent";
 
 export default class GoodRead extends Component {
     constructor() {
@@ -52,6 +53,7 @@ export default class GoodRead extends Component {
                     <h2 className="col-md-3">Book Search</h2>
                     <input onChange={this.titleChanged} className="col-md-5"/>
                     <button onClick={() => this.findBook()} className="col-md-2">Find</button>
+                    <LoginComponent/>
                 </div>
                 {   this.state.books.length > 1 ?
                     this.state.books.map(
