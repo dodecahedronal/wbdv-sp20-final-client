@@ -8,8 +8,9 @@ import BookSearch from './BookSearch'
 import BookDetail from '../components/BookDetail'
 import Profile from './Profile'
 import {AuthorDetailComponent} from "../components/AuthorDetailComponent";
+import { withCookies } from 'react-cookie';
 
-export default class BookApp extends Component {
+class BookApp extends Component {
     constructor() {
         super();
     }
@@ -23,14 +24,14 @@ export default class BookApp extends Component {
             <div className="container-fluid">
                 <Router>
                     <div>
-                        <Route path="/" exact component={BookSearch}/>
-                        <Route path="/home" component={BookHome}/>
-                        <Route path="/login" component={BookLogin}/>
-                        <Route path="/register" exact component={BookRegister}/>
-                        <Route path="/profile" component={Profile}/>
-                        <Route path="/search" component={BookSearch}/>
-                        <Route path="/detail/:id" exact component={BookDetail}/>
-                        <Route path="/author/:id" exact component={AuthorDetailComponent}/>
+                        <Route path="/" exact render={props => (<BookHome {...props} cookies={this.props.cookies}/>)}/>
+                        <Route path="/home" render={props => (<BookHome {...props} cookies={this.props.cookies}/>)}/>
+                        <Route path="/login" render={props => (<BookLogin {...props} cookies={this.props.cookies}/>)}/>
+                        <Route path="/register" exact render={props => (<BookRegister {...props} cookies={this.props.cookies}/>)}/>
+                        <Route path="/profile" render={props => (<Profile {...props} cookies={this.props.cookies}/>)}/>
+                        <Route path="/search" render={props => (<BookSearch {...props} cookies={this.props.cookies}/>)}/>
+                        <Route path="/detail/:id" exact render={props => (<BookDetail {...props} cookies={this.props.cookies}/>)}/>
+                        <Route path="/author/:id" exact render={props => (<AuthorDetailComponent {...props} cookies={this.props.cookies}/>)}/>
                         <Route path="/profile/comments" exact component={Profile}/>
                         <Route path="/profile/threads" exact component={Profile}/>
                     </div>
@@ -39,3 +40,5 @@ export default class BookApp extends Component {
         )
     }
 }
+
+export default withCookies(BookApp)

@@ -1,4 +1,3 @@
-
 const URL = 'http://localhost:4000/api/';//"https://salty-dawn-90176.herokuapp.com/api/"
 const USER_URL = 'http://localhost:4000/api/user/';//"https://salty-dawn-90176.herokuapp.com/api/user/"
 const CURRENT_USER_URL = 'http://localhost:4000/api/current/';//"https://salty-dawn-90176.herokuapp.com/api/current/"

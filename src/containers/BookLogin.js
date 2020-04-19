@@ -3,7 +3,9 @@ import {Redirect} from 'react-router-dom'
 import {login} from '../services/UserService'
 import './BookAuth.css'
 
+
 export default class BookLogin extends Component {
+
     constructor() {
         super();
 
@@ -46,6 +48,8 @@ export default class BookLogin extends Component {
             this.setState({
                 logged_in : true
             })
+            this.props.cookies.set('username', u.username)
+            this.props.cookies.set('uid', u._id)
         }
         
         console.log(u);
