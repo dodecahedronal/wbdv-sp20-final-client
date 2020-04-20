@@ -6,11 +6,13 @@ import BookApp from './containers/BookApp';
 import {combineReducers, createStore} from "redux";
 import {Provider} from "react-redux";
 import threadReducer from "./reducers/ThreadReducer"
+import commentReducer from "./reducers/CommentReducer"
 import {CookiesProvider} from "react-cookie"
 
 
 const rootReducer = combineReducers({
-    threads: threadReducer
+    threads: threadReducer,
+    comments: commentReducer
   })
   
   const store = createStore(rootReducer)
