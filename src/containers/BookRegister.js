@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {Redirect} from 'react-router-dom'
 import {createUser} from '../services/UserService'
+import './BookAuth.css'
 
 export default class BookRegister extends Component {
     constructor() {
@@ -11,7 +12,7 @@ export default class BookRegister extends Component {
             username: '',
             password: '',
             verifyPassword: '',
-            role: 'Reader',
+            role: 'USER',
             error : false,
             errorText : 'password not match'
         }
@@ -60,7 +61,6 @@ export default class BookRegister extends Component {
     }
 
     render() {
-        console.log(this.state);
         if (this.state.registered) {
             return (<Redirect to="/login"/>);
         }
@@ -71,7 +71,7 @@ export default class BookRegister extends Component {
                     <div className="nav-brand row">
                     <h1>Sign Up</h1>
                     </div>
-                    <form>
+                    <form className="info-form">
                         <div className="form-group row">
                             <label className="col-sm-2 col-form-label">
                                 Username

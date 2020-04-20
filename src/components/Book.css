@@ -4,6 +4,11 @@
     border-bottom: darkgrey 1px solid;
 }
 
+.container {
+    padding: 0;
+    margin: 0;
+}
+
 .nav-brand {
     background-color: darkgoldenrod;
     padding: 20px;
