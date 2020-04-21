@@ -54,8 +54,8 @@ export default class Profile extends Component {
                 <div className="user-profile">
                     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
                     <div className="nav-brand row">
-                        <h2 className="col-md-3">My Profile</h2>
-                        <a onClick={() => userService.logout()} href="/">Log Out</a>
+                        <h2 className="col-md-11">My Profile</h2>
+                        <div className='float-right'><a onClick={() => userService.logout()} href="/">Log Out</a></div>
                     </div>
                     {
                         this.state.editing ?
@@ -65,12 +65,13 @@ export default class Profile extends Component {
                                     this.setState({ currentUsername: event.target.value })} />
                                 <button onClick={() => {
                                     let updatedUser = { ...this.currUser, username: this.state.currentUsername };
-                                    userService.updateUser(updatedUser).then(() => {
+                                    userService.updateUser(this.state.userId, updatedUser).then(() => {
                                         this.setState({
                                             editing: false,
                                             username: this.state.currentUsername
                                         });
                                     })
+                                    this.props.cookies.set('username', this.state.currentUsername);
                                 }
                                 }>Save</button>
                                 <button onClick={() => {
