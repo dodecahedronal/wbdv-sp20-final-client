@@ -5,12 +5,14 @@ import BootStrap from '../node_modules/bootstrap/dist/css/bootstrap.css';
 import BookApp from './containers/BookApp';
 import {combineReducers, createStore} from "redux";
 import {Provider} from "react-redux";
-import threadReducer from "./reducers/ThreadReducer"
+import threadReducer from "./reducers/ThreadReducer";
+import reviewReducer from "./reducers/reviewReducer";
 import {CookiesProvider} from "react-cookie"
 
 
 const rootReducer = combineReducers({
-    threads: threadReducer
+    threads: threadReducer,
+    reviews: reviewReducer,
   })
   
   const store = createStore(rootReducer)
