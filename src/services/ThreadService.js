@@ -18,15 +18,13 @@ export const createThread = (thread) =>
     })
         .then(response => response.json())
 
-export const deleteThread = (tid) => {
+export const deleteThread = async (tid) => {
     console.log(tid)
-    fetch(THREAD_URL + tid, {
+    const response = await fetch(THREAD_URL + tid, {
         method: 'DELETE'
     })
-        .then(response => {
-            console.log(response)
-            return response.json()
-        })
+        console.log(response)
+        return await response.json()
 }
 
 

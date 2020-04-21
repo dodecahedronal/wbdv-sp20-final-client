@@ -53,6 +53,7 @@ const dispatchToPropertyMapper = (dispatch) => {
     return {
         findThreadsForUser: (userId) => threadService.findThreadsForUser(userId)
             .then(threads => dispatch(findThreadsForUser(threads))),
+            
         createThread: (thread) =>
             threadService.createThread(thread)
                 .then(actualThread =>
