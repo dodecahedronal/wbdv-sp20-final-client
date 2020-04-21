@@ -41,8 +41,9 @@ const dispatchToPropertyMapper = (dispatch) => {
     return {
         updateUser : (user) => {
             console.log(user, 'in dispatch')
-            userService.updateUser(user).then(updatedUser => {
-                dispatch(updateUser(updatedUser))
+            userService.updateUser(user._id, user).then(updatedUser => {
+                console.log(updatedUser)
+                dispatch(updateUser(updatedUser._id, updatedUser))
             })
         },
         findUser : (userId) => {
