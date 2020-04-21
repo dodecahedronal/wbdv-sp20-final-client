@@ -18,6 +18,7 @@ export const createThread = (thread) =>
     })
         .then(response => response.json())
 
+
 export const deleteThread = async (tid) => {
     console.log(tid)
     const response = await fetch(THREAD_URL + tid, {
@@ -25,12 +26,12 @@ export const deleteThread = async (tid) => {
     })
         console.log(response)
         return await response.json()
-}
 
+}
 
 export const findThreadsForUser = async (userId) => {
     console.log(userId)
-    let url = THREAD_BY_USER_URL + userId + '/thread/'
+    let url = THREAD_BY_USER_URL + userId + '/thread'
     const response = await fetch(url)
     console.log(response)
     return await response.json()
