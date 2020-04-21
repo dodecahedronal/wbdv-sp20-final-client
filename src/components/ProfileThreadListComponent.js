@@ -16,7 +16,7 @@ class ProfileThreadListComponent extends React.Component {
     }
 
     componentDidMount() {
-        this.props.findThreadsForUser(this.props.cookies.get('uid'));
+        this.props.findThreadsForUser(this.props.userId);
     }
 
     render() {
