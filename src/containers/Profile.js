@@ -126,7 +126,8 @@ class Profile extends Component {
                         <div className="nav-item" onClick={() => this.selectThread()}>
                             <a className={this.state.active == 'Threads' ? "nav-link active" : "nav-link"}>Threads</a>
                         </div>
-                        {this.props.user.role === 'ADMIN' &&
+                        {console.log(this.props.user)}
+                        {this.props.cookies.get('role') === 'ADMIN' &&
                             <div className="nav-item" onClick={() => this.selectManage()}>
                             <a className={this.state.active == 'Manage Users' ? "nav-link active" : "nav-link"}>
                                 Manage Users
