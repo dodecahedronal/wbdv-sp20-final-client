@@ -16,7 +16,8 @@ export class LoginComponent extends React.Component {
             <a onClick={() => {
                 userService.logout()
                 .then(() => {this.props.cookies.remove('uid')
-                            this.props.cookies.remove('username')})
+                            this.props.cookies.remove('username')
+                            this.props.cookies.remove('role')})
             }
             } href="/">Log Out</a> :
             <a href="/login">Log In/Register</a>

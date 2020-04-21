@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import userService from "../services/UserService";
-import {ADD_USER, findUser, UPDATE_USER, updateUser} from "../actions/UserActions";
+import {findUser, updateUser} from "../actions/UserActions";
 import "./Profile.css"
 import ProfileThreadListComponent from '../components/ProfileThreadListComponent';
 import ProfileReviewListComponent from '../components/ProfileReviewListComponent';
+import {Redirect} from "react-router-dom";
+import ManageUserComponent from "../components/ManageUserComponent";
 import { LoginComponent } from '../components/LoginComponent';
 
 
@@ -16,7 +18,13 @@ class Profile extends Component {
         this.props.match.params.id ?
         this.props.findUser(this.props.match.params.id):
         this.props.findUser(this.props.cookies.get('uid')) 
-        userService.findAllUsers().then(response => this.users = response)
+        if(this.props.cookies.get('role') == 'ADMIN') {
+            userService.findAllUsers().then(response => this.users = response)
+        }
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        return prevProps !== this.props || prevState !== this.state;
     }
 
     constructor() {
@@ -27,6 +35,7 @@ class Profile extends Component {
             currentUsername: '',
             active: 'Reviews',
             usernameDuplicated: false,
+            displayOptions: false,
         }
     }
 
@@ -42,13 +51,31 @@ class Profile extends Component {
         })
     }
 
+
+    selectManage() {
+        this.setState({
+            active: 'Manage Users'
+        })
+    }
+
     render() {
             return (
+                this.props.cookies.get('uid') ?
                 <div className="user-profile">
                     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+                    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css"/>
                     <div className="nav-brand row">
                         <h2 className="col-md-11">My Profile</h2>
-                        <LoginComponent cookies={this.props.cookies}/>
+                        <div className="settings float-right">
+                            Settings <i className="fas fa-user-cog"/>
+                            <select className="select-setting">
+                                <option disabled selected id="default-blank"> --- </option>
+                                <option id="change-password">Change Password</option>
+                                <option id="log-out" onChange={() => {
+                                    userService.logout();
+                                }}>Log Out</option>
+                            </select>
+                        </div>
                     </div>
                     {
                         this.state.editing ?
@@ -98,8 +125,13 @@ class Profile extends Component {
                         </div>
                         <div className="nav-item" onClick={() => this.selectThread()}>
                             <a className={this.state.active == 'Threads' ? "nav-link active" : "nav-link"}>Threads</a>
-
                         </div>
+                        {this.props.user.role === 'ADMIN' &&
+                            <div className="nav-item" onClick={() => this.selectManage()}>
+                            <a className={this.state.active == 'Manage Users' ? "nav-link active" : "nav-link"}>
+                                Manage Users
+                            </a>
+                        </div>}
                     </ul>
                     {this.state.active == 'Reviews' &&
                         <ProfileReviewListComponent userId={this.props.match.params.id ? this.props.match.params.id : this.props.cookies.get('uid')} cookies={this.props.cookies} />
@@ -107,13 +139,16 @@ class Profile extends Component {
                     {this.state.active == 'Threads' &&
                         <ProfileThreadListComponent userId={this.props.match.params.id ? this.props.match.params.id : this.props.cookies.get('uid')} cookies={this.props.cookies} />
                     }
+                    {this.state.active === 'Manage Users' &&
+                        <ManageUserComponent userId={this.props.user.userId} cookies={this.props.cookies}/>
+                    }
                 </div>
+                    : <Redirect to="/search"></Redirect>
             )
     }
 }
 
 const stateToPropertyMapper = (state, ownProps) => {
-    console.log(state.user.user)
     return {
         user: state.user.user,
         cookies: ownProps.cookies,
@@ -128,13 +163,11 @@ const dispatchToPropertyMapper = (dispatch) => {
             })
         },
         findUser : (userId) => {
-            console.log(userId)
             userService.findUserById(userId).then(user => {
-                console.log(user, " in dispatch")
                 dispatch(findUser(user))});
         },
     }
-}
+};
 
 export default connect(
     stateToPropertyMapper,

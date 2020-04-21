@@ -4,18 +4,22 @@ import {createThread, findThreadsForBook, deleteThread} from "../actions/threadA
 import {connect} from "react-redux";
 import {Link} from "react-router-dom";
 import './Thread.css';
+import {findUser} from "../actions/UserActions";
+import {currentUser, findUserById} from "../services/UserService";
 
 class ThreadListComponent extends React.Component {
     state = {
         currentTitle: "New Thread",
     }
 
+    currUser = {};
+
     componentDidMount() {
         this.props.findThreadsForBook(this.props.bookId)
     }
 
     render() {
-        console.log(this.props.cookies)
+        console.log(this.currUser)
         return( 
             <div className="thread-list">
                 <h3>Threads</h3>
@@ -42,7 +46,8 @@ class ThreadListComponent extends React.Component {
                         {
                             <Link to={`/user/${thread.userId}`} className="thread-author">- {thread.username}</Link>
                         }
-                        {this.props.cookies.get('uid') === thread.userId && <button onClick={()=>this.props.deleteThread(thread._id)}>Delete</button>}
+                        {this.props.cookies.get('uid') === thread.userId
+                        && <button onClick={()=>this.props.deleteThread(thread._id)}>Delete</button>}
                     </div>) : <div>No threads yet! Be the first to add a thread!</div>}
                 </div>
         )
@@ -50,6 +55,7 @@ class ThreadListComponent extends React.Component {
 }
 
 const stateToPropertyMapper = (state, ownProps) => {
+    console.log(ownProps.cookies)
     return {
         threads: state.threads.threads,
         cookies: ownProps.cookies

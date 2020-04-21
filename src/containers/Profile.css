@@ -5,3 +5,11 @@
 .duplicate-error {
     color: coral;
 }
+
+.user-tbm-name {
+    margin: 20px;
+}
+
+.row.manage-buttons {
+    float: right;
+}

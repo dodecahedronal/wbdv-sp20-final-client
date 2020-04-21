@@ -47,6 +47,7 @@ export default class BookLogin extends Component {
         else {
             this.props.cookies.set('username', u.username)
             this.props.cookies.set('uid', u._id)
+            this.props.cookies.set('role', u.role)
             this.setState({
                 logged_in : true
             })
