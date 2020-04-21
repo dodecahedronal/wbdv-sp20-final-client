@@ -2,7 +2,7 @@ import React from 'react'
 import {findDetailByBookId} from '../services/BookService'
 import {AuthorListComponent} from './AuthorListComponent'
 import ThreadListComponent from './ThreadListComponent'
-import {ReviewListComponent} from "./ReviewListComponent";
+import ReviewListComponent from "./ReviewListComponent";
 
 class BookDetail extends React.Component {
   constructor(props) {
