@@ -6,16 +6,22 @@ export class LoginComponent extends React.Component {
     loggedIn = false;
 
     componentDidMount() {
-        userService.currentUser().then(response => {
-            this.loggedIn = response !== null && response !== undefined;
-        });
+
     }
 
     render() {
         return (
-            this.loggedIn ?
-            <a onClick={() => userService.logout()} href="/">Log Out</a> :
+            <div>
+            {this.props.cookies.get('uid') ?
+            <a onClick={() => {
+                userService.logout()
+                .then(() => {this.props.cookies.remove('uid')
+                            this.props.cookies.remove('username')})
+            }
+            } href="/">Log Out</a> :
             <a href="/login">Log In/Register</a>
+        }
+        </div>
         )
     }
 }

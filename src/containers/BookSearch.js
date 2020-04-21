@@ -53,7 +53,7 @@ export default class GoodRead extends Component {
                     <h2 className="col-md-3">Book Search</h2>
                     <input onChange={this.titleChanged} className="col-md-5"/>
                     <button onClick={() => this.findBook()} className="col-md-2">Find</button>
-                    <LoginComponent/>
+                    <LoginComponent cookies={this.props.cookies}/>
                 </div>
                 {   this.state.books.length > 1 ?
                     this.state.books.map(
