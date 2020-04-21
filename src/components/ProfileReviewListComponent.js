@@ -3,6 +3,7 @@ import reviewService from "../services/ReviewService";
 import './Review.css'
 import {connect} from 'react-redux'
 import {addReview, deleteReview, findReviewsByBookId, findReviewsByUserId} from "../actions/ReviewAction";
+import bookService from '../services/BookService';
 
 class ProfileReviewListComponent extends React.Component {
 
@@ -32,9 +33,10 @@ class ProfileReviewListComponent extends React.Component {
             return (
                 <div>
                     {this.props.reviews.map(rev => {
-                        console.log(rev);
                         return (<ul className='review-list' key={rev._id}>
-                            <div className='rating'>Rating: {rev.rating}/5</div>
+                            <div className='rating'>Rating: {rev.rating}/5
+                            <a href={`/detail/${rev.bookId}`}> View review</a>
+                            </div>
                             <div className='revcontent'>{rev.content}</div>
                             <div>{this.props.cookies.username}</div>
                         </ul>)
