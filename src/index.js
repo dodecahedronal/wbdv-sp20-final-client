@@ -8,6 +8,7 @@ import {Provider} from "react-redux";
 import threadReducer from "./reducers/ThreadReducer";
 import reviewReducer from "./reducers/reviewReducer";
 import commentReducer from "./reducers/CommentReducer"
+import userReducer from "./reducers/userReducer"
 import {CookiesProvider} from "react-cookie"
 
 
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
     threads: threadReducer,
     reviews: reviewReducer,
     comments: commentReducer,
+    user: userReducer,
   });
   
   const store = createStore(rootReducer)

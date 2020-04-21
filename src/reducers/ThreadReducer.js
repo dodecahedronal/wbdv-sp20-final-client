@@ -1,4 +1,5 @@
 import {CREATE_THREAD, FIND_THREADS_FOR_BOOK, DELETE_THREAD} from "../actions/threadActions.js";
+import {FIND_THREADS_FOR_USER} from "../actions/threadActions";
 
 const initialState = {
     threads: []
@@ -10,6 +11,10 @@ const threadReducer = (state = initialState, action) => {
             return {
                 threads: action.threads
             }
+        case FIND_THREADS_FOR_USER:
+            return {
+                threads: action.threads,
+            };
         case CREATE_THREAD:
             return {
                 threads: [
