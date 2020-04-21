@@ -42,7 +42,7 @@ export class ReviewListComponent extends React.Component{
                 </div>
                 {this.props.reviews && this.props.reviews.map(rev => {
                     console.log(rev);
-                    return (<div>
+                    return (<div key={rev._id}>
                         <div>Rating: {rev.rating}/5</div>
                         <div>{rev.content}</div>
                         <div>{this.props.cookies.get('username')}</div>

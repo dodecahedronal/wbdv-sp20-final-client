@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 //import redux, {connect} from 'react-redux';
-import { Link } from 'react-router-dom'
+//import { Link } from 'react-router-dom'
 import userService from "../services/UserService";
 import { ADD_USER, UPDATE_USER } from "../actions/UserActions";
 import "./Profile.css"
 import ProfileThreadListComponent from '../components/ProfileThreadListComponent';
+import ProfileReviewListComponent from '../components/ProfileReviewListComponent';
 
 export default class Profile extends Component {
 
@@ -54,8 +55,8 @@ export default class Profile extends Component {
                 <div className="user-profile">
                     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
                     <div className="nav-brand row">
-                        <h2 className="col-md-3">My Profile</h2>
-                        <a onClick={() => userService.logout()} href="/">Log Out</a>
+                        <h2 className="col-md-11">My Profile</h2>
+                        <div className='float-right'><a onClick={() => userService.logout()} href="/">Log Out</a></div>
                     </div>
                     {
                         this.state.editing ?
@@ -65,12 +66,13 @@ export default class Profile extends Component {
                                     this.setState({ currentUsername: event.target.value })} />
                                 <button onClick={() => {
                                     let updatedUser = { ...this.currUser, username: this.state.currentUsername };
-                                    userService.updateUser(updatedUser).then(() => {
+                                    userService.updateUser(this.state.userId, updatedUser).then(() => {
                                         this.setState({
                                             editing: false,
                                             username: this.state.currentUsername
                                         });
                                     })
+                                    this.props.cookies.set('username', this.state.currentUsername);
                                 }
                                 }>Save</button>
                                 <button onClick={() => {
@@ -81,22 +83,27 @@ export default class Profile extends Component {
                                 }}>Cancel</button>
                             </div> :
                             <div className="row username">
-                                <span>Username: </span>
+                                <span>Username: &nbsp;</span>
                                 <span>{this.state.username}</span>
+                                &nbsp; &nbsp;
                                 <button onClick={() => this.setState({ editing: true })}>Edit</button>
                             </div>
                     }
-                    <div className="row nav-tabs">
+                    <ul className="nav nav-tabs">
                         <div className="nav-item" onClick={() => this.selectReview()}>
                             <a className={this.state.active == 'Reviews' ? "nav-link active" : "nav-link"}>Reviews</a>
                         </div>
                         <div className="nav-item" onClick={() => this.selectThread()}>
                             <a className={this.state.active == 'Threads' ? "nav-link active" : "nav-link"}>Threads</a>
-                            {this.state.active == 'Threads' &&
-                                <ProfileThreadListComponent userId={this.state.userId} cookies={this.props.cookies} />
-                            }
+
                         </div>
-                    </div>
+                    </ul>
+                    {this.state.active == 'Reviews' &&
+                        <ProfileReviewListComponent userId={this.state.userId} cookies={this.props.cookies} />
+                    }
+                    {this.state.active == 'Threads' &&
+                        <ProfileThreadListComponent userId={this.state.userId} cookies={this.props.cookies} />
+                    }
                 </div>
             )
     }

@@ -2,13 +2,13 @@ const THREAD_URL = "http://localhost:4000/api/thread/"
 const THREAD_BY_BOOK_URL = "http://localhost:4000/api/book/"
 const THREAD_BY_USER_URL = "http://localhost:4000/api/user/"
 
-export const findThreadsForBook = async(bookId) => {
+export const findThreadsForBook = async (bookId) => {
     let url = THREAD_BY_BOOK_URL + bookId + '/thread/'
     const response = await fetch(url)
     return await response.json()
 }
 
-export const createThread = (thread) => 
+export const createThread = (thread) =>
     fetch(THREAD_URL, {
         method: 'POST',
         body: JSON.stringify(thread),
@@ -16,16 +16,21 @@ export const createThread = (thread) =>
             'content-type': 'application/json'
         }
     })
-    .then(response => response.json())
+        .then(response => response.json())
 
-export const deleteThread = (tid) =>
+export const deleteThread = (tid) => {
+    console.log(tid)
     fetch(THREAD_URL + tid, {
         method: 'DELETE'
     })
-    .then(response => response.json())
+        .then(response => {
+            console.log(response)
+            return response.json()
+        })
+}
 
 
-export const findThreadsForUser = async(userId) => {
+export const findThreadsForUser = async (userId) => {
     console.log(userId)
     let url = THREAD_BY_USER_URL + userId + '/thread/'
     const response = await fetch(url)
