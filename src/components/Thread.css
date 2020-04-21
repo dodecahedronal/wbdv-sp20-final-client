@@ -2,8 +2,24 @@
     margin-bottom: 10px;
 }
 
-ul.thread {
-    margin-top: 10px;
+.thread {
+    margin: 10px;
     background-color: SeaShell;
-    padding: 7px;
+    padding: 10px;
+    border: black 1px solid;
+}
+
+.thread-author {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.thread-list {
+    padding: 10px;
+    background-color: SeaShell;
+}
+
+.row.add-new-thread {
+    margin: 10px !important;
+    padding-bottom: 10px;
 }
