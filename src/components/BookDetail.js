@@ -2,6 +2,7 @@ import React from 'react'
 import {findDetailByBookId} from '../services/BookService'
 import {AuthorListComponent} from './AuthorListComponent'
 import ThreadListComponent from './ThreadListComponent'
+import {ReviewListComponent} from "./ReviewListComponent";
 
 class BookDetail extends React.Component {
   constructor(props) {
@@ -9,19 +10,25 @@ class BookDetail extends React.Component {
 
     this.state = {
       book: undefined,
-      bookId : props.match.params.id
+      bookId : props.match.params.id,
+      active: 'Reviews',
     }
   }
 
   componentDidMount = async () => {
-    const book = await findDetailByBookId(this.state.bookId)
+    const book = await findDetailByBookId(this.state.bookId);
     this.setState({
-        book: book
+        book: book,
+        active: 'Reviews',
     })
   }
 
   description() {
     return {__html: this.state.book.description};
+  }
+
+  toggleStateTab(switchToTab) {
+      this.setState({active: switchToTab});
   }
 
   render() {
@@ -42,7 +49,18 @@ class BookDetail extends React.Component {
                 <h3>{this.state.book.title}</h3>
                 <AuthorListComponent authors={this.state.book.authors}/>
                 <div dangerouslySetInnerHTML={this.description()}/>
-                <ThreadListComponent bookId={this.state.bookId} cookies={this.props.cookies}/>
+                <div className="row book-detail-tabs nav-tabs">
+                    <div className="nav-item" onClick={() => this.toggleStateTab('Reviews')}>
+                        <a>Reviews</a>
+                        {this.state.active === 'Reviews' &&
+                            <ReviewListComponent bookId={this.state.book.id} cookies={this.props.cookies}/>}
+                    </div>
+                    <div className="nav-item" onClick={() => this.toggleStateTab('Threads')}>
+                        <a>Threads</a>
+                        {this.state.active === 'Threads' &&
+                        <ThreadListComponent bookId={this.state.bookId} cookies={this.props.cookies}/>}
+                    </div>
+                </div>
             </div>
         )
   }
