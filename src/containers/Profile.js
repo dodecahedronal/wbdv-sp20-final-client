@@ -7,6 +7,7 @@ import ProfileThreadListComponent from '../components/ProfileThreadListComponent
 import ProfileReviewListComponent from '../components/ProfileReviewListComponent';
 import {Redirect} from "react-router-dom";
 import ManageUserComponent from "../components/ManageUserComponent";
+import { LoginComponent } from '../components/LoginComponent';
 
 
 class Profile extends Component {
@@ -14,7 +15,6 @@ class Profile extends Component {
     users = [];
 
     componentDidMount() {
-        console.log(this.props.user)
         this.props.findUser(this.props.cookies.get('uid'));
         userService.findAllUsers().then(response => this.users = response)
     }
@@ -55,7 +55,6 @@ class Profile extends Component {
     }
 
     render() {
-        console.log(this.props.user, "in render")
             return (
                 this.props.cookies.get('uid') ?
                 <div className="user-profile">
