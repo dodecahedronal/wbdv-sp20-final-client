@@ -18,7 +18,9 @@ class Profile extends Component {
         this.props.match.params.id ?
         this.props.findUser(this.props.match.params.id):
         this.props.findUser(this.props.cookies.get('uid')) 
-        userService.findAllUsers().then(response => this.users = response)
+        if(this.props.cookies.get('role') == 'ADMIN') {
+            userService.findAllUsers().then(response => this.users = response)
+        }
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {

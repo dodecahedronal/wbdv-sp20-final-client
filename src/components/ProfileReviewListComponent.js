@@ -34,9 +34,10 @@ class ProfileReviewListComponent extends React.Component {
                 <div>
                     {this.props.reviews.map(rev => {
                         return (<ul className='review-list' key={rev._id}>
-                            <div className='rating'>Rating: {rev.rating}/5
-                            <a href={`/detail/${rev.bookId}`}> View review</a>
-                            </div>
+                            <div className='review-rating'>
++                                Rating: {rev.rating}/5 <i className="fas fa-star" />
++                                <a href={`/detail/${rev.bookId}`}> View review</a>
++                            </div> 
                             <div className='revcontent'>{rev.content}</div>
                             <div>{this.props.cookies.username}</div>
                         </ul>)
