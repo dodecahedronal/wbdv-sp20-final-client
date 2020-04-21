@@ -15,8 +15,9 @@ class ThreadListComponent extends React.Component {
     render() {
         return( 
             <div className="thread-list">
+                <h3>Threads</h3>
                 <li>
-                    <input
+                    <textarea
                     onChange={(e) => this.setState({
                             currentTitle: e.target.value
                         })}
@@ -25,13 +26,15 @@ class ThreadListComponent extends React.Component {
                         const thread = {subject: this.state.currentTitle, bookId: this.props.bookId, username: this.props.cookies.get('username'), userId: this.props.cookies.get('uid')}
                         this.props.createThread(thread)
                         this.setState({currentTitle: "New Thread"})
-                    }}></button>
+                    }}>Post!</button>
                 </li>
                     {this.props.threads.map(thread =>
                     <li className="thread" key={thread._id}>
+                        <div>
                         {thread.subject}
                         {thread.username}
                         {this.props.cookies.get('uid') === thread.userId && <button onClick={()=>this.props.deleteThread(thread._id)}>Delete</button>}
+                        </div>
                     </li>)}
                 </div>
         )
