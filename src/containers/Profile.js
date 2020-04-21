@@ -8,7 +8,7 @@ import ProfileReviewListComponent from '../components/ProfileReviewListComponent
 import {Redirect} from "react-router-dom";
 import ManageUserComponent from "../components/ManageUserComponent";
 import { LoginComponent } from '../components/LoginComponent';
-
+import {Link} from 'react-router-dom'
 
 class Profile extends Component {
 
@@ -65,17 +65,12 @@ class Profile extends Component {
                     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
                     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css"/>
                     <div className="nav-brand row">
-                        <h2 className="col-md-11">My Profile</h2>
-                        <div className="settings float-right">
-                            Settings <i className="fas fa-user-cog"/>
-                            <select className="select-setting">
-                                <option disabled selected id="default-blank"> --- </option>
-                                <option id="change-password">Change Password</option>
-                                <option id="log-out" onChange={() => {
-                                    userService.logout();
-                                }}>Log Out</option>
-                            </select>
+                        <h2 className="col-md-9">My Profile</h2>
+                        <div className="col-md-3 row">
+                            <Link className="col-6" to="/search">Search For Books</Link>
+                            <LoginComponent className="col-6" cookies={this.props.cookies}/>
                         </div>
+
                     </div>
                     {
                         this.state.editing ?

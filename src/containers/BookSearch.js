@@ -3,6 +3,7 @@ import {findBooks, findDetailByBookId, findReviewsByTitle} from '../services/Boo
 import BookItem from '../components/BookItem'
 import '../components/Book.css'
 import {LoginComponent} from "../components/LoginComponent";
+import {Link} from 'react-router-dom'
 
 export default class GoodRead extends Component {
     constructor() {
@@ -51,9 +52,12 @@ export default class GoodRead extends Component {
                 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"/>
                 <div className="nav-brand row">
                     <h2 className="col-md-3">Book Search</h2>
-                    <input onChange={this.titleChanged} className="col-md-5"/>
+                    <input onChange={this.titleChanged} className="col-md-4"/>
                     <button onClick={() => this.findBook()} className="col-md-2">Find</button>
-                    <LoginComponent cookies={this.props.cookies}/>
+                    <div className="col-md-3 row">
+                        {this.props.cookies.get('uid') && <Link className="col-6" to="/profile">My Profile</Link>}
+                        <LoginComponent className="col-6" cookies={this.props.cookies}/>
+                    </div>
                 </div>
                 {   this.state.books.length > 1 ?
                     this.state.books.map(
