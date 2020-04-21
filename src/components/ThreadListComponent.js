@@ -2,6 +2,7 @@ import React from "react";
 import threadService from "../services/ThreadService";
 import {createThread, findThreadsForBook, deleteThread} from "../actions/threadActions";
 import {connect} from "react-redux";
+import {Link} from "react-router-dom";
 
 class ThreadListComponent extends React.Component {
     state = {
@@ -29,7 +30,9 @@ class ThreadListComponent extends React.Component {
                 </li>
                     {this.props.threads.map(thread =>
                     <li className="thread" key={thread._id}>
+                        <Link to={`/book/${this.props.bookId}/thread/${thread._id}`}>
                         {thread.subject}
+                        </Link>
                         {thread.username}
                         {this.props.cookies.get('uid') === thread.userId && <button onClick={()=>this.props.deleteThread(thread._id)}>Delete</button>}
                     </li>)}
