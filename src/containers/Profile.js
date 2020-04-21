@@ -5,6 +5,7 @@ import {ADD_USER, findUser, UPDATE_USER, updateUser} from "../actions/UserAction
 import "./Profile.css"
 import ProfileThreadListComponent from '../components/ProfileThreadListComponent';
 import ProfileReviewListComponent from '../components/ProfileReviewListComponent';
+import { LoginComponent } from '../components/LoginComponent';
 
 
 class Profile extends Component {
@@ -12,7 +13,6 @@ class Profile extends Component {
     users = [];
 
     componentDidMount() {
-        console.log(this.props.user)
         this.props.findUser(this.props.cookies.get('uid'));
         userService.findAllUsers().then(response => this.users = response)
     }
@@ -41,13 +41,12 @@ class Profile extends Component {
     }
 
     render() {
-        console.log(this.props.user, "in render")
             return (
                 <div className="user-profile">
                     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
                     <div className="nav-brand row">
                         <h2 className="col-md-11">My Profile</h2>
-                        <div className='float-right'><a onClick={() => userService.logout()} href="/">Log Out</a></div>
+                        <LoginComponent cookies={this.props.cookies}/>
                     </div>
                     {
                         this.state.editing ?

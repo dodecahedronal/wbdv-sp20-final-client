@@ -18,6 +18,7 @@ export class ReviewListComponent extends React.Component{
     addReview() {
         const review = {
             userId: this.props.cookies.get('uid'),
+            username: this.props.cookies.get('username'),
             bookId: this.props.bookId,
             rating: this.state.rating,
             content: this.state.desc,
@@ -56,7 +57,7 @@ export class ReviewListComponent extends React.Component{
                         <div className="review-content">{rev.content}</div>
                         <div className="review-author">By: {this.props.cookies.get('uid') === rev.userId ?
                             <a href='/profile'>{this.props.cookies.get('username')}</a> :
-                            <div>{this.props.cookies.get('username')}</div>}
+                            <div>{rev.username}</div>}
                         {this.props.cookies.get('uid') === rev.userId &&
                         <button onClick={() => this.props.deleteReview(rev._id)}>Delete</button>
                         }</div>
