@@ -26,28 +26,37 @@ export class ReviewListComponent extends React.Component{
     }
 
     render() {
-        console.log(this.props.reviews)
         return (
             <div>
-                <div>Review List</div>
+                <h3>Review List</h3>
+                <br/>
                 <div>
                     <span>
-                        <label>Rating:</label>
+                        <label>Rating: </label>
                         <input onChange={event => this.setState({rating: event.target.value})}
                                type="number" min="1" max="5"/> / 5 stars
                     </span>
+                </div>
+                <div className="row">
                     <textarea onChange={event => this.setState({desc: event.target.value})}/>
                     <button onClick={() => this.addReview()}>Post!</button>
                 </div>
+                <br/>
+                <h3>Past Reviews:</h3>
                 {this.props.reviews && this.props.reviews.map(rev => {
                     console.log(rev);
-                    return (<div key={rev._id}>
-                        <div>Rating: {rev.rating}/5</div>
-                        <div>{rev.content}</div>
-                        <div>{this.props.cookies.get('username')}</div>
+                    return (<div key={rev._id} className="review">
+                        <div className="review-rating">Rating: {
+                            rev.rating
+                        } / 5 <i className="fas fa-star"/>
+                        </div>
+                        <div className="review-content">{rev.content}</div>
+                        <div className="review-author">By: {this.props.cookies.get('uid') === rev.userId ?
+                            <a href='/profile'>{this.props.cookies.get('username')}</a> :
+                            <div>{this.props.cookies.get('username')}</div>}
                         {this.props.cookies.get('uid') === rev.userId &&
                         <button onClick={() => this.props.deleteReview(rev._id)}>Delete</button>
-                        }
+                        }</div>
                     </div>)
                 })}
             </div>

@@ -10,6 +10,7 @@ import Profile from './Profile'
 import {AuthorDetailComponent} from "../components/AuthorDetailComponent";
 import { withCookies } from 'react-cookie';
 import CommentListComponent from '../components/CommentListComponent'
+import './Container.css'
 
 class BookApp extends Component {
     constructor() {
