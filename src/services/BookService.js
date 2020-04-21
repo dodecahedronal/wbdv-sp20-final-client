@@ -26,3 +26,10 @@ export const findBookByAuthor = async(authorId) => {
     let response = await fetch(url);
     return response.json();
 }
+
+export default {
+    findBooks,
+    findDetailByBookId,
+    findReviewsByTitle,
+    findBookByAuthor
+}

@@ -1,37 +1,31 @@
 import React, { Component } from 'react';
-//import redux, {connect} from 'react-redux';
-//import { Link } from 'react-router-dom'
+import {connect} from 'react-redux';
 import userService from "../services/UserService";
-import { ADD_USER, UPDATE_USER } from "../actions/UserActions";
+import {ADD_USER, findUser, UPDATE_USER, updateUser} from "../actions/UserActions";
 import "./Profile.css"
 import ProfileThreadListComponent from '../components/ProfileThreadListComponent';
 import ProfileReviewListComponent from '../components/ProfileReviewListComponent';
 
-export default class Profile extends Component {
+
+class Profile extends Component {
+
+    users = [];
+
+    componentDidMount() {
+        console.log(this.props.user)
+        this.props.findUser(this.props.cookies.get('uid'));
+        userService.findAllUsers().then(response => this.users = response)
+    }
 
     constructor() {
-        super()
+        super();
         this.state = {
             username: '',
             editing: false,
             currentUsername: '',
-            userId: '',
-            active: 'Reviews'
+            active: 'Reviews',
+            usernameDuplicated: false,
         }
-    }
-
-    currUser = {};
-
-    componentDidMount() {
-        userService.currentUser().then(response => {
-            console.log(response)
-            this.setState({
-                username: response.username,
-                currentUsername: response.username,
-                userId: response._id,
-            })
-            this.currUser = response;
-        })
     }
 
     selectReview() {
@@ -47,10 +41,7 @@ export default class Profile extends Component {
     }
 
     render() {
-        console.log(this.state)
-        if (!this.state.userId)
-            return ("<div> Loading </div>");
-        else
+        console.log(this.props.user, "in render")
             return (
                 <div className="user-profile">
                     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
@@ -66,13 +57,20 @@ export default class Profile extends Component {
                                     this.setState({ currentUsername: event.target.value })} />
                                 <button onClick={() => {
                                     let updatedUser = { ...this.currUser, username: this.state.currentUsername };
-                                    userService.updateUser(this.state.userId, updatedUser).then(() => {
+                                    if (this.users.find(user => user.username === updatedUser.username) &&
+                                        updatedUser.username !== this.props.user.username) {
                                         this.setState({
-                                            editing: false,
-                                            username: this.state.currentUsername
-                                        });
-                                    })
-                                    this.props.cookies.set('username', this.state.currentUsername);
+                                            usernameDuplicated: true
+                                        })
+                                    } else {
+                                        userService.updateUser(this.state.userId, updatedUser).then(() => {
+                                            this.setState({
+                                                editing: false,
+                                                username: this.state.currentUsername
+                                            });
+                                        })
+                                        this.props.cookies.set('username', this.state.currentUsername);
+                                    }
                                 }
                                 }>Save</button>
                                 <button onClick={() => {
@@ -81,10 +79,13 @@ export default class Profile extends Component {
                                         editing: false,
                                     })
                                 }}>Cancel</button>
+                               {this.state.usernameDuplicated &&
+                               <div className="duplicate-error">
+                                   Sorry! This username has already been taken, please try another one.</div>}
                             </div> :
                             <div className="row username">
                                 <span>Username: &nbsp;</span>
-                                <span>{this.state.username}</span>
+                                <span>{this.props.user.username}</span>
                                 &nbsp; &nbsp;
                                 <button onClick={() => this.setState({ editing: true })}>Edit</button>
                             </div>
@@ -108,24 +109,32 @@ export default class Profile extends Component {
             )
     }
 }
-//
-// const stateToPropertyMapper = (state) => {
-//     return {
-//         user: state.user
-//     }
-// }
-//
-// const dispatchToPropertyMapper = (dispatch) => {
-//     return {
-//         updateUser : (user) => {
-//             userService.updateUser(user).then(updatedUser => {
-//                 dispatch({
-//                     type: UPDATE_USER,
-//                     user: updatedUser
-//                 })
-//             })
-//         }
-//     }
-// }
 
-//TODO: continue adding redux
+const stateToPropertyMapper = (state, ownProps) => {
+    console.log(state.user.user)
+    return {
+        user: state.user.user,
+        cookies: ownProps.cookies,
+    }
+}
+
+const dispatchToPropertyMapper = (dispatch) => {
+    return {
+        updateUser : (user) => {
+            userService.updateUser(user).then(updatedUser => {
+                dispatch(updateUser(updatedUser))
+            })
+        },
+        findUser : (userId) => {
+            console.log(userId)
+            userService.findUserById(userId).then(user => {
+                console.log(user, " in dispatch")
+                dispatch(findUser(user))});
+        },
+    }
+}
+
+export default connect(
+    stateToPropertyMapper,
+    dispatchToPropertyMapper
+)(Profile);

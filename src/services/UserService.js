@@ -79,6 +79,8 @@ export const findUserByUsername = (uname) =>
 export const findUserById = (uid) =>
     fetch(USER_URL + uid).then(response => response.json());
 
+export const findAllUsers = () => fetch(USER_URL).then(response => response.json());
+
 export default {
     createUser,
     logout,
@@ -87,4 +89,5 @@ export default {
     findUserByUsername,
     findUserById,
     updateUser,
+    findAllUsers,
 }
