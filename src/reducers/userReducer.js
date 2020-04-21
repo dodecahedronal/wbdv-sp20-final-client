@@ -1,16 +1,27 @@
-import {ADD_USER, UPDATE_USER, FIND_USER} from '../actions/UserActions';
+import {
+    ADD_USER,
+    UPDATE_USER,
+    FIND_USER,
+    FIND_ALL_USERS
+} from '../actions/UserActions';
 
 const initialState = {
-    user: {}
+    users: [],
+    user: {},
+    displaySettings: false,
 }
 
 const userReducer = (state = initialState, action) => {
     switch(action.type) {
         case FIND_USER:
-            console.log(action.user)
             return {
                 ...state,
                 user: action.user,
+            };
+        case FIND_ALL_USERS:
+            return {
+                ...state,
+                users: action.users,
             };
         case ADD_USER:
             return {
@@ -21,6 +32,7 @@ const userReducer = (state = initialState, action) => {
                 ]
             };
         case UPDATE_USER:
+            console.log(action.user, 'in action')
             return {
                 ...state,
                 users: [
