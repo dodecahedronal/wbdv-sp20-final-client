@@ -5,17 +5,15 @@ import {connect} from 'react-redux';
 
 export class ReviewListComponent extends React.Component{
 
+    state = {
+        rating: null,
+        desc: '',
+    };
+
     componentDidMount() {
         this.props.findReviewsByBookId(this.props.bookId);
     }
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            rating: null,
-            desc: '',
-        }
-    }
 
     addReview() {
         const review = {
@@ -28,6 +26,7 @@ export class ReviewListComponent extends React.Component{
     }
 
     render() {
+        console.log(this.props.reviews)
         return (
             <div>
                 <div>Review List</div>
@@ -46,6 +45,9 @@ export class ReviewListComponent extends React.Component{
                         <div>Rating: {rev.rating}/5</div>
                         <div>{rev.content}</div>
                         <div>{this.props.cookies.get('username')}</div>
+                        {this.props.cookies.get('uid') === rev.userId &&
+                        <button onClick={() => this.props.deleteReview(rev._id)}>Delete</button>
+                        }
                     </div>)
                 })}
             </div>
@@ -63,23 +65,18 @@ const stateToPropertyMapper = (state, ownProps) => {
 
 const dispatchToPropertyMapper = (dispatch) => {
     return {
-        findReviewsByUserId: (userId) => {
+        findReviewsByUserId: (userId) =>
             reviewService.findReviewsByUserId(userId).then(response =>
-                dispatch(findReviewsByUserId(response)));
-        },
-        findReviewsByBookId: (bookId) => {
-            reviewService.findReviewsByBookId(bookId).then(response => dispatch(findReviewsByBookId(response)));
-        },
-        createReview: (review) => {
-            reviewService.createReview(review).then(response => dispatch(addReview(response)));
-        },
-        deleteReview: (reviewId) => {
-            reviewService.deleteReview(reviewId).then(response => dispatch(deleteReview(response)));
-        }
+                dispatch(findReviewsByUserId(userId, response))),
+        findReviewsByBookId: (bookId) =>
+            reviewService.findReviewsByBookId(bookId).then(response => dispatch(findReviewsByBookId(bookId, response))),
+        createReview: (review) =>
+            reviewService.createReview(review).then(response => dispatch(addReview(response))),
+        deleteReview: (reviewId) =>
+            reviewService.deleteReview(reviewId).then(response => dispatch(deleteReview(response)))
     };
 };
 
 export default connect(
     stateToPropertyMapper,
-    dispatchToPropertyMapper
-)(ReviewListComponent);
+    dispatchToPropertyMapper)(ReviewListComponent);

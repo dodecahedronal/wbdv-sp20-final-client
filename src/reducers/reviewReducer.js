@@ -1,7 +1,7 @@
 import {ADD_REVIEW, DELETE_REVIEW, FIND_REVIEWS_BY_USER_ID, FIND_REVIEWS_BY_BOOK_ID} from "../actions/ReviewAction";
 
 const initialState = {
-    reviews: [],
+    reviews: []
 };
 
 const reviewReducer = (state = initialState, action) => {
