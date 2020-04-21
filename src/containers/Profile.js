@@ -15,7 +15,9 @@ class Profile extends Component {
     users = [];
 
     componentDidMount() {
-        this.props.findUser(this.props.cookies.get('uid'));
+        this.props.match.params.id ?
+        this.props.findUser(this.props.match.params.id):
+        this.props.findUser(this.props.cookies.get('uid')) 
         userService.findAllUsers().then(response => this.users = response)
     }
 
@@ -111,7 +113,8 @@ class Profile extends Component {
                                 <span>Username: &nbsp;</span>
                                 <span>{this.props.user.username}</span>
                                 &nbsp; &nbsp;
-                                <button onClick={() => this.setState({ editing: true })}>Edit</button>
+                                {(!this.props.match.params.id || this.props.match.params.id === this.props.cookies.get('uid')) &&
+                                 <button onClick={() => this.setState({ editing: true })}>Edit</button>}
                             </div>
                     }
                     <ul className="nav nav-tabs">
@@ -129,10 +132,10 @@ class Profile extends Component {
                         </div>}
                     </ul>
                     {this.state.active == 'Reviews' &&
-                        <ProfileReviewListComponent userId={this.state.userId} cookies={this.props.cookies} />
+                        <ProfileReviewListComponent userId={this.props.match.params.id ? this.props.match.params.id : this.props.cookies.get('uid')} cookies={this.props.cookies} />
                     }
                     {this.state.active == 'Threads' &&
-                        <ProfileThreadListComponent userId={this.state.userId} cookies={this.props.cookies} />
+                        <ProfileThreadListComponent userId={this.props.match.params.id ? this.props.match.params.id : this.props.cookies.get('uid')} cookies={this.props.cookies} />
                     }
                     {this.state.active === 'Manage Users' &&
                         <ManageUserComponent userId={this.props.user.userId} cookies={this.props.cookies}/>

@@ -13,7 +13,7 @@ class ProfileReviewListComponent extends React.Component {
         //         reviews: response,
         //     })
         // })
-        this.props.findReviewsByUserId(this.props.cookies.get('uid'))
+        this.props.findReviewsByUserId(this.props.userId)
     }
 
     constructor(props) {

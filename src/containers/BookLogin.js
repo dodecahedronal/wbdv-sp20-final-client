@@ -57,7 +57,7 @@ export default class BookLogin extends Component {
 
     render() {
         if (this.state.logged_in){
-            return (<Redirect to="/profile"/>);
+            return (<Redirect to="/user"/>);
         }
         else {
             return (
