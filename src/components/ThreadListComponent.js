@@ -31,7 +31,10 @@ class ThreadListComponent extends React.Component {
                         this.setState({currentTitle: "New Thread"})
                     }}>Post!</button>
                 </div>
-                    {this.props.threads.map(thread =>
+                <br/>
+                <h3>Past Threads: </h3>
+                <br/>
+                    {this.props.threads.length > 0 ? this.props.threads.map(thread =>
                     <div className="thread" key={thread._id}>
                         <Link to={`/book/${this.props.bookId}/thread/${thread._id}`} className="thread-subject">
                         {thread.subject}
@@ -41,7 +44,7 @@ class ThreadListComponent extends React.Component {
                             <span className="thread-author">- {thread.username}</span>
                         }
                         {this.props.cookies.get('uid') === thread.userId && <button onClick={()=>this.props.deleteThread(thread._id)}>Delete</button>}
-                    </div>)}
+                    </div>) : <div>No threads yet! Be the first to add a thread!</div>}
                 </div>
         )
     }

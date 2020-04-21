@@ -27,23 +27,26 @@ export class ReviewListComponent extends React.Component{
 
     render() {
         return (
-            <div>
+            <div className="review-list">
                 <h3>Review List</h3>
                 <br/>
-                <div>
-                    <span>
+                <div className="add-new-review">
+                    <div className="row add-rating">
+                    <div>
                         <label>Rating: </label>
                         <input onChange={event => this.setState({rating: event.target.value})}
                                type="number" min="1" max="5"/> / 5 stars
-                    </span>
-                </div>
-                <div className="row">
-                    <textarea onChange={event => this.setState({desc: event.target.value})}/>
-                    <button onClick={() => this.addReview()}>Post!</button>
+                    </div>
+                    </div>
+                    <div className="row">
+                        <textarea className="add-review-content"
+                                  onChange={event => this.setState({desc: event.target.value})}/>
+                        <button className="post-review-button" onClick={() => this.addReview()}>Post!</button>
+                    </div>
                 </div>
                 <br/>
                 <h3>Past Reviews:</h3>
-                {this.props.reviews && this.props.reviews.map(rev => {
+                {this.props.reviews.length > 0 ? this.props.reviews.map(rev => {
                     console.log(rev);
                     return (<div key={rev._id} className="review">
                         <div className="review-rating">Rating: {
@@ -58,7 +61,7 @@ export class ReviewListComponent extends React.Component{
                         <button onClick={() => this.props.deleteReview(rev._id)}>Delete</button>
                         }</div>
                     </div>)
-                })}
+                }) : <div>No reviews yet! Be the first to add a review!</div>}
             </div>
 
         );

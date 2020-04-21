@@ -15,5 +15,11 @@
 }
 
 .thread-list {
-    margin: 10px;
+    padding: 10px;
+    background-color: SeaShell;
+}
+
+.row.add-new-thread {
+    margin: 10px !important;
+    padding-bottom: 10px;
 }

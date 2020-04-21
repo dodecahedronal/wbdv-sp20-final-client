@@ -44,7 +44,11 @@ class BookDetail extends React.Component {
                     <a className="return-to-search" href="/search/">
                         <i className="fas fa-home"/> Back to Search
                     </a>
-                    <span className="greeting-span">Hi there {this.props.cookies.get('username')} </span>
+                    <span className="greeting-span">
+                        Hi there {
+                        this.props.cookies.get('uid') ?
+                        <a href="/profile">{this.props.cookies.get('username')}</a> : ''
+                    }!</span>
                 </div>
                 <div className="book-info">
                     <img className="book-cover-img" src={this.state.book.image_url}></img>
