@@ -22,16 +22,17 @@ export class ReviewListComponent extends React.Component{
 
     addReview() {
         const review = {
-            userId: this.props.cookies.userId,
+            userId: this.props.cookies.get('uid'),
             bookId: this.props.bookId,
             rating: this.state.rating,
             content: this.state.desc,
         };
+        console.log(review)
         reviewService.createReview(review);
     }
 
     render() {
-        console.log(this.state.reviews)
+        console.log(this.props.cookies)
         return (
             <div>
                 <div>Review List</div>
@@ -46,10 +47,10 @@ export class ReviewListComponent extends React.Component{
                 </div>
                 {this.state.reviews.map(rev => {
                     console.log(rev);
-                    return (<div>
+                    return (<div key={rev._id}>
                         <div>Rating: {rev.rating}/5</div>
                         <div>{rev.content}</div>
-                        <div>{this.props.cookies.username}</div>
+                        <div>{this.props.cookies.get('username')}</div>
                     </div>)
                 })}
             </div>

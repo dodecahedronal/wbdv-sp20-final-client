@@ -32,7 +32,7 @@ class BookDetail extends React.Component {
   }
 
   render() {
-    console.log(this.state.book)
+    console.log(this.state.cookies)
     if (!this.state.book)
         return ("<div> Loading </div>");
     else

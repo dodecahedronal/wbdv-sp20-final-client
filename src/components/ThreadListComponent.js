@@ -14,6 +14,7 @@ class ThreadListComponent extends React.Component {
     }
 
     render() {
+        console.log(this.props.cookies)
         return( 
             <div className="thread-list">
                 <h3>Threads</h3>

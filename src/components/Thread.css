@@ -2,7 +2,8 @@
     margin-bottom: 10px;
 }
 
-ul {
+ul.thread {
+    margin-top: 10px;
     background-color: SeaShell;
-    padding: 10px;
+    padding: 7px;
 }
