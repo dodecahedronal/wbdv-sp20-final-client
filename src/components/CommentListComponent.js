@@ -70,7 +70,7 @@ class CommentListComponent extends React.Component {
                         <div className="comment" key={comment._id}>
                             <div>{comment.content}</div>
                             <div><a href={`/profile/${comment.userId}`}>{comment.username}</a></div>
-                            {this.props.cookies.get('uid') === comment.userId && <i
+                            {(this.props.cookies.get('uid') === comment.userId || this.props.cookies.get('role') === 'ADMIN') && <i
                                 onClick={()=>this.props.deleteComment(comment._id)}
                                 className="fas fa-trash"
                             >
