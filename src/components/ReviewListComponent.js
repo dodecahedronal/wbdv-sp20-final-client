@@ -30,8 +30,9 @@ export class ReviewListComponent extends React.Component{
     render() {
         return (
             <div className="review-list">
-                <h3>Review List</h3>
+                <h3>New Review</h3>
                 <br/>
+                { this.props.cookies.get('uid') ?
                 <div className="add-new-review">
                     <div className="row add-rating">
                     <div>
@@ -45,7 +46,13 @@ export class ReviewListComponent extends React.Component{
                                   onChange={event => this.setState({desc: event.target.value})}/>
                         <button className="post-review-button" onClick={() => this.addReview()}>Post!</button>
                     </div>
-                </div>
+                </div> :
+                <span className="row comment-post">
+                It seems you aren't logged in.
+            <a href="/login" className="link-to-auth">Log in</a> or
+            <a href="/register" className="link-to-auth"> register</a> to add a review.
+                </span>
+    }
                 <br/>
                 <h3>Past Reviews:</h3>
                 {this.props.reviews.length > 0 ? this.props.reviews.map(rev => {
