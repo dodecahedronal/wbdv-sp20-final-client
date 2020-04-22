@@ -1,8 +1,9 @@
 import React, {Component} from 'react'
-import {Link} from 'react-router-dom'
+import {Link, Redirect} from 'react-router-dom'
 import {currentUser, logout} from '../services/UserService'
+import './BookHome.css';
 
-export default class BookApp extends Component {
+export default class BookHome extends Component {
     constructor() {
         super();
 
@@ -29,33 +30,46 @@ export default class BookApp extends Component {
 
     render() {
         return(
-            <div>
-                <h2> Hello Books</h2>
-                <ul>
-                    <li>
-                        <Link to='/search'>Search</Link>
-                    </li>
-                    <li>
-                        <Link to='/profile'>Profile</Link>
-                    </li>
-                    {this.state.currentUser == null &&
-                        <li>
-                            <Link to='/login'>Login</Link>
-                            /
-                            <Link to='/register'>Register</Link>
-                        </li>
-                    }
-                </ul>
-
-                {this.state.currentUser != null &&
-                    <div>
-                        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"/>
-                        <div className="nav-brand row">Home</div>
-                        <br></br>
-                        <h3>{this.state.currentUser.username} logged in</h3>
-                        <button onClick={() => this.logout()}>Logout</button>
+            <div className="hb-home">
+                <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"/>
+                <div className="nav-brand row"><h3>Hello Books</h3></div>
+                <br></br>
+                {this.props.cookies.get('uid') ? <div className="logged-in-home">
+                    <h3>Hello {this.props.cookies.get('username')}!</h3>
+                    <br/>
+                    <div className="search-message">
+                        <p>Looking for a book?</p>
+                        Go to <Link to="/search">Search</Link>
                     </div>
+                    <br/>
+                    <div className="profile-message">
+                        <p>Want to view your info?</p>
+                        Go to <Link to="/profile">My Profile</Link>
+                    </div>
+                    <br/>
+                    <div className="logout-message">
+                        <p>Had enough for the day?</p>
+                        <Link to='/' onClick={() => this.logout()}>Log out</Link>
+                    </div>
+                </div> : <div className="anon-home">
+                    <h3>Welcome to Hello Books!</h3>
+                    <br/>
+                    <div className="search-message">
+                        <p>Looking for a book?</p>
+                        Go to <Link to="/search">Search</Link>
+                    </div>
+                    <br/>
+                    <div className="sign-in-message">
+                        <p>Want to do more than just view books?</p>
+                        <Link to="/login">Log in</Link> or <Link to="/register">Register</Link> to start!
+                    </div>
+                </div>
                 }
+                <br/>
+                <div className="privacy-message">
+                    Our users' privacy and safety is of the utmost importance to us here at Hello Books.
+                    View our <a>Privacy Policy</a>  for more details.
+                </div>
             </div>
         )
     }
