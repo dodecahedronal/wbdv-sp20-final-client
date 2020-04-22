@@ -55,6 +55,7 @@ export const currentUser = async() => {
     return await response.json()
 }
 
+
 export const updateUser = async(userId, user) => {
     console.log(userId)
     try {

@@ -1,6 +1,7 @@
 import {
     ADD_USER,
     UPDATE_USER,
+    UPDATE_MYSELF,
     FIND_USER,
     FIND_ALL_USERS
 } from '../actions/UserActions';
@@ -40,6 +41,10 @@ const userReducer = (state = initialState, action) => {
                     action.user,
                 ]
             };
+        case UPDATE_MYSELF:
+            return {
+                user: action.user
+            }
         default:
             return state;
     }

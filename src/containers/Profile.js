@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import userService from "../services/UserService";
-import {findUser, updateUser} from "../actions/UserActions";
+import {findUser, updateUser, updateMyself} from "../actions/UserActions";
 import "./Profile.css"
 import ProfileThreadListComponent from '../components/ProfileThreadListComponent';
 import ProfileReviewListComponent from '../components/ProfileReviewListComponent';
@@ -34,7 +34,6 @@ class Profile extends Component {
             editing: false,
             currentUsername: '',
             active: 'Reviews',
-            usernameDuplicated: false,
             displayOptions: false,
         }
     }
@@ -79,22 +78,23 @@ class Profile extends Component {
                                 <input value={this.state.currentUsername} onChange={(event) =>
                                     this.setState({ currentUsername: event.target.value })} />
                                 <button onClick={() => {
-                                    let updatedUser = { ...this.currUser, username: this.state.currentUsername };
-                                    if (this.users.find(user => user.username === updatedUser.username) &&
-                                        updatedUser.username !== this.props.user.username) {
-                                        this.setState({
-                                            usernameDuplicated: true
-                                        })
-                                    } else {
-                                        userService.updateUser(this.state.userId, updatedUser).then(() => {
-                                            this.setState({
+                                    userService.findUserByUsername(this.state.currentUsername)
+                                    .then(user => {
+                                        if (user.username) {
+                                            alert('Sorry! This username has already been taken')
+                                        } else {
+                                            let updatedUser = {username: this.state.currentUsername};
+                                            this.props.updateSelf(this.props.cookies.get('uid'), updatedUser)
+                                            this.props.cookies.set('username', this.state.currentUsername);
+                                                this.setState({
                                                 editing: false,
-                                                username: this.state.currentUsername
+                                                currentUsername: ''
                                             });
-                                        })
-                                        this.props.cookies.set('username', this.state.currentUsername);
-                                    }
-                                }
+                                        }
+                                    })
+                                    
+                                    }  
+                                
                                 }>Save</button>
                                 <button onClick={() => {
                                     this.setState({
@@ -102,9 +102,6 @@ class Profile extends Component {
                                         editing: false,
                                     })
                                 }}>Cancel</button>
-                               {this.state.usernameDuplicated &&
-                               <div className="duplicate-error">
-                                   Sorry! This username has already been taken, please try another one.</div>}
                             </div> :
                             <div className="row username">
                                 <span>Username: &nbsp;</span>
@@ -162,6 +159,11 @@ const dispatchToPropertyMapper = (dispatch) => {
             userService.findUserById(userId).then(user => {
                 dispatch(findUser(user))});
         },
+        updateSelf: (userId, user) => {
+            userService.updateUser(userId, user).then(actualUser => {
+                dispatch(updateMyself(actualUser))
+            })
+        }
     }
 };
 
