@@ -1,6 +1,8 @@
 import {
     ADD_USER,
+    DELETE_USER,
     UPDATE_USER,
+    UPDATE_MYSELF,
     FIND_USER,
     FIND_ALL_USERS
 } from '../actions/UserActions';
@@ -31,6 +33,10 @@ const userReducer = (state = initialState, action) => {
                     action.user,
                 ]
             };
+        case DELETE_USER:
+            return {
+                users: state.users.filter(user => user._id !== action.userId)
+            };
         case UPDATE_USER:
             console.log(action.user, 'in action')
             return {
@@ -40,6 +46,10 @@ const userReducer = (state = initialState, action) => {
                     action.user,
                 ]
             };
+        case UPDATE_MYSELF:
+            return {
+                user: action.user
+            }
         default:
             return state;
     }

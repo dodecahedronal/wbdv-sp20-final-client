@@ -3,6 +3,8 @@ import {findDetailByBookId} from '../services/BookService'
 import {AuthorListComponent} from './AuthorListComponent'
 import ThreadListComponent from './ThreadListComponent'
 import ReviewListComponent from "./ReviewListComponent";
+import {LoginComponent} from "./LoginComponent";
+import {Link} from "react-router-dom"
 
 class BookDetail extends React.Component {
   constructor(props) {
@@ -41,14 +43,15 @@ class BookDetail extends React.Component {
                 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"/>
                 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css"/>
                 <div className="nav-brand row">
-                    <a className="return-to-search" href="/search/">
+                    <Link className="return-to-search col-8" to="/search">
                         <i className="fas fa-home"/> Back to Search
-                    </a>
-                    <span className="greeting-span">
-                        Hi there {
-                        this.props.cookies.get('uid') ?
-                        <a href="/profile">{this.props.cookies.get('username')}</a> : ''
-                    }!</span>
+                    </Link>
+                    {this.props.cookies.get('uid') && 
+                    <Link className="profile-link col-2" to="/profile">
+                        My Profile
+                    </Link>}
+                    
+                    <LoginComponent className="col-2" cookies={this.props.cookies}/>
                 </div>
                 <div className="book-info">
                     <img className="book-cover-img" src={this.state.book.image_url}></img>

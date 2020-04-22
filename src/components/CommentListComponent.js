@@ -4,6 +4,7 @@ import {createComment, findCommentsForThread, deleteComment} from "../actions/co
 import {connect} from "react-redux";
 import threadService from "../services/ThreadService";
 import './Comment.css'
+import {Link} from "react-router-dom";
 
 class CommentListComponent extends React.Component {
     state = {
