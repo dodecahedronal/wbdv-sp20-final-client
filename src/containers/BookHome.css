@@ -1,0 +1,17 @@
+.hb-home {
+    padding: 0px;
+}
+
+.logged-in-home, .anon-home {
+    padding: 20px;
+}
+
+.search-message, .profile-message, .sign-in-message, .logout-message {
+    border: 1px solid black;
+    background-color: antiquewhite;
+    padding: 10px;
+}
+
+.privacy-message {
+    padding: 20px;
+}
