@@ -1,0 +1,34 @@
+.thread-info {
+    padding: 20px;
+    border: 1px black solid;
+    margin: 10px;
+    background-color: antiquewhite;
+}
+
+.thread-subject {
+    margin-bottom: 10px;
+    font-size: 20px;
+    font-style: italic;
+}
+
+.row.comment-post, .add-comment-label {
+    margin: 20px;
+}
+
+.comment-list {
+    margin: 20px;
+}
+
+.comment {
+    padding: 10px;
+    border: 1px solid black;
+    background: seashell;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.link-to-auth {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
