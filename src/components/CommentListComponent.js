@@ -5,6 +5,7 @@ import {connect} from "react-redux";
 import threadService from "../services/ThreadService";
 import './Comment.css'
 import {Link} from "react-router-dom";
+import {LoginComponent} from "./LoginComponent";
 
 class CommentListComponent extends React.Component {
     state = {
@@ -36,6 +37,13 @@ class CommentListComponent extends React.Component {
                 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css"/>
                 <div className="row nav-brand">
                     <h3>Thread Comments</h3>
+                    <div className="row">
+                        <Link className="search-nav" to="/search">
+                            <i className="fas fa-search"/> Search For Books</Link>
+                        <Link to="/" className="home-nav"><i className="fas fa-home"/> Home</Link>
+                        {this.props.cookies.get('uid') && <Link to="/profile" className="profile-nav"><i className="fas fa-user"/> My Profile</Link>}
+                        <LoginComponent className="col-6" cookies={this.props.cookies} />
+                    </div>
                 </div>
                 <div className="thread-info">
                     <div className="thread-subject">{this.state.threadSubject}</div>

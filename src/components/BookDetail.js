@@ -44,12 +44,11 @@ class BookDetail extends React.Component {
                 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css"/>
                 <div className="nav-brand row">
                     <Link className="return-to-search col-8" to="/search">
-                        <i className="fas fa-home"/> Back to Search
+                        <i className="fas fa-search"/> Back to Search
                     </Link>
-                    {this.props.cookies.get('uid') && 
-                    <Link className="profile-link col-2" to="/profile">
-                        My Profile
-                    </Link>}
+                    {this.props.cookies.get('uid') &&
+                    <Link to="/profile" className="profile-nav"><i className="fas fa-user"/> My Profile</Link>}
+                    <Link to="/" className="home-nav"><i className="fas fa-home"/> Home</Link>
                     
                     <LoginComponent className="col-2" cookies={this.props.cookies}/>
                 </div>

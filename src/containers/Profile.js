@@ -73,9 +73,13 @@ class Profile extends Component {
                         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
                         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css" />
                         <div className="nav-brand row">
-                            <h2 className="col-md-9">My Profile</h2>
-                            <div className="col-md-3 row">
-                                <Link className="col-6" to="/search">Search For Books</Link>
+                            <h2 className="col-md-7">My Profile</h2>
+                            <div className="col-md-5 row">
+                                {this.props.cookies.get('uid') !== this.props.match.params.uid && <Link className="profile-nav" to="/profile">
+                                    <i className="fas fa-user"/> My Profile</Link>}
+                                <Link className="search-nav" to="/search">
+                                    <i className="fas fa-search"/> Search For Books</Link>
+                                <Link to="/" className="home-nav"><i className="fas fa-home"/> Home</Link>
                                 <LoginComponent className="col-6" cookies={this.props.cookies} />
                             </div>
 
