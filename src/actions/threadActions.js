@@ -21,5 +21,5 @@ export const deleteThread = (threadId) => ({
 
 export const findThreadsForUser = (threads) => ({
     type: FIND_THREADS_FOR_USER,
-    threads,
+    threads: threads
 })

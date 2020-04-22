@@ -2,6 +2,7 @@ import React from "react";
 import reviewService from "../services/ReviewService";
 import {addReview, deleteReview, findReviewsByBookId, findReviewsByUserId} from "../actions/ReviewAction";
 import {connect} from 'react-redux';
+import {Link} from "react-router-dom";
 
 export class ReviewListComponent extends React.Component{
 
@@ -55,9 +56,8 @@ export class ReviewListComponent extends React.Component{
                         } / 5 <i className="fas fa-star"/>
                         </div>
                         <div className="review-content">{rev.content}</div>
-                        <div className="review-author">By: {this.props.cookies.get('uid') === rev.userId ?
-                            <a href='/profile'>{this.props.cookies.get('username')}</a> :
-                            <div>{rev.username}</div>}
+                        <div className="review-author">By: <Link to={`/profile/${rev.userId}`} className="review-author">{rev.username}</Link>
+
                         {this.props.cookies.get('uid') === rev.userId &&
                         <button onClick={() => this.props.deleteReview(rev._id)}>Delete</button>
                         }</div>

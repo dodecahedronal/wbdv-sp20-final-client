@@ -2,6 +2,8 @@ import React from "react";
 import commentService from "../services/CommentService";
 import {createComment, findCommentsForThread, deleteComment} from "../actions/commentActions";
 import {connect} from "react-redux";
+import {Link} from "react-router-dom";
+
 
 class CommentListComponent extends React.Component {
     state = {
@@ -31,7 +33,8 @@ class CommentListComponent extends React.Component {
                     {this.props.comments.map(comment =>
                     <li className="comment" key={comment._id}>
                         {comment.content}
-                        {comment.username}
+
+                        <Link to={`/profile/${comment.userId}`} className="comment-author">- {comment.username}</Link>
                         {this.props.cookies.get('uid') === comment.userId && <button onClick={()=>this.props.deleteComment(comment._id)}>Delete</button>}
                     </li>)}
                 </div>

@@ -36,7 +36,7 @@ export default class BookApp extends Component {
                         <Link to='/search'>Search</Link>
                     </li>
                     <li>
-                        <Link to='/user'>Profile</Link>
+                        <Link to='/profile'>Profile</Link>
                     </li>
                     {this.state.currentUser == null &&
                         <li>

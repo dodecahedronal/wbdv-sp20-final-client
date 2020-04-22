@@ -44,7 +44,7 @@ class ThreadListComponent extends React.Component {
                         {thread.subject}
                         </Link>
                         {
-                            <Link to={`/user/${thread.userId}`} className="thread-author">- {thread.username}</Link>
+                            <Link to={`/profile/${thread.userId}`} className="thread-author">- {thread.username}</Link>
                         }
                         {this.props.cookies.get('uid') === thread.userId
                         && <button onClick={()=>this.props.deleteThread(thread._id)}>Delete</button>}
