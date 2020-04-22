@@ -1,3 +1,8 @@
 .info-form {
     margin-top: 20px;
 }
+
+.container {
+    margin: 0 !important;
+    margin-right: 0 !important;
+}
