@@ -32,7 +32,7 @@ class ManageUserComponent extends React.Component {
                     user.role === 'USER' && (<div className="user-tbm row">
                         <div className="user-tbm-name">{user.username}</div>
                         <div className="row manage-buttons">
-                            <button className="make-admin" onClick={() => this.props.updateUser({ ...user, role: 'ADMIN' })}>Upgrade User</button>
+                            <button className="make-admin" onClick={() => this.props.updateUser(user._id, {role: 'ADMIN' })}>Upgrade User</button>
                             <button className="delete-user" onClick={() => this.props.deleteUser(user._id)}>Delete User</button>
                         </div>
                     </div>)
@@ -51,11 +51,10 @@ const stateToPropertyMapper = (state, ownProps) => {
 
 const dispatchToPropertyMapper = (dispatch) => {
     return {
-        updateUser: (user) => {
-            console.log(user, 'in dispatch')
-            userService.updateUser(user._id, user).then(updatedUser => {
+        updateUser: (userId, user) => {
+            userService.updateUser(userId, user).then(updatedUser => {
                 console.log(updatedUser)
-                dispatch(updateUser(updatedUser._id, updatedUser))
+                dispatch(updateUser(userId, updatedUser))
             })
         },
         deleteUser: (userId) => {
