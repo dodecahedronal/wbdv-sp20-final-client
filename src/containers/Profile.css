@@ -13,3 +13,15 @@
 .row.manage-buttons {
     float: right;
 }
+
+.home-nav {
+    color: black;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.search-nav {
+    color: black;
+    margin-left: 20px;
+    margin-right: 20px;
+}

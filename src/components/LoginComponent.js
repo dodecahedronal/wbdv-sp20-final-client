@@ -1,9 +1,8 @@
 import React from "react";
 import userService from "../services/UserService";
+import './Login.css'
 
 export class LoginComponent extends React.Component {
-
-    loggedIn = false;
 
     componentDidMount() {
 
@@ -19,8 +18,8 @@ export class LoginComponent extends React.Component {
                             this.props.cookies.remove('username')
                             this.props.cookies.remove('role')})
             }
-            } href="/">Log Out</a> :
-            <a href="/login">Log In/Register</a>
+            } href="/" className="logout-nav">Log Out</a> :
+            <a className="login-nav" href="/login">Log In/Register</a>
         }
         </div>
         )
