@@ -53,7 +53,7 @@ class ThreadListComponent extends React.Component {
                         {
                             <Link to={`/profile/${thread.userId}`} className="thread-author">- {thread.username}</Link>
                         }
-                        {this.props.cookies.get('uid') === thread.userId
+                        {(this.props.cookies.get('uid') === thread.userId || this.props.cookies.get('role') === 'ADMIN')
                         && <button onClick={()=>this.props.deleteThread(thread._id)}>Delete</button>}
                     </div>) : <div>No threads yet! Be the first to add a thread!</div>}
                 </div>

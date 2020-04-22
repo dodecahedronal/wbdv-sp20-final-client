@@ -65,7 +65,7 @@ export class ReviewListComponent extends React.Component{
                         <div className="review-content">{rev.content}</div>
                         <div className="review-author">By: <Link to={`/profile/${rev.userId}`} className="review-author">{rev.username}</Link>
 
-                        {this.props.cookies.get('uid') === rev.userId &&
+                        {(this.props.cookies.get('uid') === rev.userId || this.props.cookies.get('role') === 'ADMIN')&&
                         <button onClick={() => this.props.deleteReview(rev._id)}>Delete</button>
                         }</div>
                     </div>)
@@ -93,7 +93,7 @@ const dispatchToPropertyMapper = (dispatch) => {
         createReview: (review) =>
             reviewService.createReview(review).then(response => dispatch(addReview(response))),
         deleteReview: (reviewId) =>
-            reviewService.deleteReview(reviewId).then(response => dispatch(deleteReview(response)))
+            reviewService.deleteReview(reviewId).then(response => dispatch(deleteReview(reviewId)))
     };
 };
 

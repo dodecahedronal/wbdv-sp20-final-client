@@ -29,11 +29,14 @@ const createReview = async (review) => {
     return await response.json();
 };
 
-const deleteReview = async (reviewId) => {
-    const response = await fetch(REVIEW_URL + reviewId, {
-        method: 'DELETE',
-    });
-};
+export const deleteReview = async (rid) => {
+    const response = await fetch(REVIEW_URL + rid, {
+        method: 'DELETE'
+    })
+        console.log(response)
+        return await response.json()
+
+}
 
 export default {
     findReviewsByBookId,
