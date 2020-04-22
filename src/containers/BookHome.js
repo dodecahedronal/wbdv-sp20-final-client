@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {Link, Redirect} from 'react-router-dom'
-import {currentUser, logout} from '../services/UserService'
+import userService from '../services/UserService'
 import './BookHome.css';
 
 export default class BookHome extends Component {
@@ -13,7 +13,7 @@ export default class BookHome extends Component {
     }
 
     componentDidMount = async () => {
-        const user = await currentUser();
+        const user = await userService.currentUser();
         this.setState({
             currentUser : user
         })
@@ -21,7 +21,9 @@ export default class BookHome extends Component {
     }
 
     logout = async () => {
-        await logout();
+        await userService.logout().then(() => {this.props.cookies.remove('uid')
+            this.props.cookies.remove('username')
+            this.props.cookies.remove('role')});
         
         this.setState({
             currentUser : null
