@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {Redirect} from 'react-router-dom'
 import {createUser} from '../services/UserService'
 import './BookAuth.css'
+import userService from "../services/UserService";
 
 export default class BookRegister extends Component {
     constructor() {
@@ -48,15 +49,32 @@ export default class BookRegister extends Component {
         }
         if (this.state.password != this.state.verifyPassword) {
             this.setState({
-                error : true
+                error : true,
+                errorText: "The passwords don't match. Please try again"
             })
         }
         else {
-            let response =  await createUser(user);
-            this.setState({
-                registered: true
-            })
-            console.log(response)
+            await userService.findUserByUsername(this.state.username).then(
+
+            async (existingUser) => {
+                console.log(existingUser)
+                if (existingUser.username) {
+                    this.setState({
+                        error : true,
+                        errorText: "This username is already taken. Please select another"
+                    })
+                } else {
+                let response =  await createUser(user);
+                this.setState({
+                    registered: true
+                })
+                console.log(response)
+    
+                }
+            }
+            )
+            
+            
         }
     }
 
@@ -107,7 +125,7 @@ export default class BookRegister extends Component {
                             </label>
                             <div className="col-sm-10">
                                 <button className="btn btn-primary btn-block" onClick={this.addUser}>
-                                    Sign in
+                                    Register
                             </button>
                             </div>
                         </div>
