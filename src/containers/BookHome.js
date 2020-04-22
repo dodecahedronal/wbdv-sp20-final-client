@@ -70,7 +70,7 @@ export default class BookHome extends Component {
                 <br/>
                 <div className="privacy-message">
                     Our users' privacy and safety is of the utmost importance to us here at Hello Books.
-                    View our <a>Privacy Policy</a>  for more details.
+                    View our <a href='/privacy-policy'>Privacy Policy</a>  for more details.
                 </div>
             </div>
         )
