@@ -16,9 +16,17 @@ export const createUser = async (user) => {
         });
         console.log(response)
         return await response.json();
-    }catch(err){
+    } catch (err) {
         console.log(err)
     }
+}
+
+export const deleteUser = async (userId) => {
+    let response = await fetch(URL + 'user/' + userId, {
+        method: 'DELETE',
+    })
+    console.log(response)
+    return await response.json()
 }
 
 export const login = async (user) => {
@@ -48,14 +56,14 @@ export const logout = async () =>
         credentials: 'include'
     })
 
-export const currentUser = async() => {
+export const currentUser = async () => {
     let response = await fetch(CURRENT_USER_URL, {
         credentials: 'include'
     })
     return await response.json()
 }
 
-export const updateUser = async(userId, user) => {
+export const updateUser = async (userId, user) => {
     console.log(userId)
     try {
         let response = await fetch(URL + 'user/' + userId, {
@@ -69,7 +77,7 @@ export const updateUser = async(userId, user) => {
         });
         console.log(response)
         return await response.json();
-    }catch(err){
+    } catch (err) {
         console.log(err)
     }
 }
@@ -84,6 +92,7 @@ export const findAllUsers = () => fetch(USER_URL).then(response => response.json
 
 export default {
     createUser,
+    deleteUser,
     logout,
     currentUser,
     login,

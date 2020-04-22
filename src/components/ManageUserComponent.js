@@ -1,7 +1,7 @@
 import React from "react";
 import {connect} from "react-redux";
 import userService from "../services/UserService";
-import {findUser, updateUser, findAllUsers} from "../actions/UserActions";
+import {findUser, deleteUser, updateUser, findAllUsers} from "../actions/UserActions";
 
 class ManageUserComponent extends React.Component{
     componentDidMount() {
@@ -14,6 +14,11 @@ class ManageUserComponent extends React.Component{
         this.props.updateUser(newUser);
     }
 
+    deleteUser(userId) {
+        console.log(userId);
+        this.props.deleteUser(userId);
+    }
+
     render() {
         return (<div>
             {this.props.users.map(user =>
@@ -21,7 +26,7 @@ class ManageUserComponent extends React.Component{
                     <div className="user-tbm-name">{user.username}</div>
                     <div className="row manage-buttons">
                         <button className="make-admin" onClick={() => this.props.updateUser({...user, role: 'ADMIN'})}>Upgrade User</button>
-                        <button className="delete-user">Delete User</button>
+                        <button className="delete-user" onClick={()=>this.props.deleteUser(user._id)}>Delete User</button>
                     </div>
                 </div>)
             )}
@@ -45,6 +50,10 @@ const dispatchToPropertyMapper = (dispatch) => {
                 console.log(updatedUser)
                 dispatch(updateUser(updatedUser._id, updatedUser))
             })
+        },
+        deleteUser : (userId) => {
+            userService.deleteUser(userId)
+                .then(status => dispatch(deleteUser(userId)))
         },
         findUser : (userId) => {
             userService.findUserById(userId).then(user => {

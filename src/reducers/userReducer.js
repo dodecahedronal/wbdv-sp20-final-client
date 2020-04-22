@@ -1,5 +1,6 @@
 import {
     ADD_USER,
+    DELETE_USER,
     UPDATE_USER,
     FIND_USER,
     FIND_ALL_USERS
@@ -30,6 +31,10 @@ const userReducer = (state = initialState, action) => {
                     ...state.users,
                     action.user,
                 ]
+            };
+        case DELETE_USER:
+            return {
+                users: state.users.filter(user => user._id !== action.userId)
             };
         case UPDATE_USER:
             console.log(action.user, 'in action')
