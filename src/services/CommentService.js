@@ -1,5 +1,5 @@
-const COMMENT_URL = "http://localhost:4000/api/comment/"
-const COMMENT_BY_THREAD_URL = "http://localhost:4000/api/thread/"
+const COMMENT_URL = "https://salty-dawn-90176.herokuapp.com/api/comment/"; //"http://localhost:4000/api/comment/"
+const COMMENT_BY_THREAD_URL = "https://salty-dawn-90176.herokuapp.com/api/thread/"; //"http://localhost:4000/api/thread/"
 
 export const findCommentsForThread = async(threadId) => {
     let url = COMMENT_BY_THREAD_URL + threadId + '/comment/'

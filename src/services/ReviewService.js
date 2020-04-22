@@ -1,6 +1,6 @@
-const REVIEW_URL = 'http://localhost:4000/api/review/';
-const REVIEW_USER_URL = 'http://localhost:4000/api/user/';
-const REVIEW_BOOK_URL = 'http://localhost:4000/api/book/';
+const REVIEW_URL = "https://salty-dawn-90176.herokuapp.com/api/review/";//'http://localhost:4000/api/review/';
+const REVIEW_USER_URL = "https://salty-dawn-90176.herokuapp.com/api/user/" //'http://localhost:4000/api/user/';
+const REVIEW_BOOK_URL = "https://salty-dawn-90176.herokuapp.com/api/book/" //'http://localhost:4000/api/book/';
 
 const findAllReviews = async () => {
     const response = await fetch(REVIEW_URL);

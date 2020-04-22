@@ -1,6 +1,6 @@
-const THREAD_URL = "http://localhost:4000/api/thread/"
-const THREAD_BY_BOOK_URL = "http://localhost:4000/api/book/"
-const THREAD_BY_USER_URL = "http://localhost:4000/api/user/"
+const THREAD_URL = "https://salty-dawn-90176.herokuapp.com/api/thread/"//"http://localhost:4000/api/thread/"
+const THREAD_BY_BOOK_URL = "https://salty-dawn-90176.herokuapp.com/api/book/"//"http://localhost:4000/api/book/"
+const THREAD_BY_USER_URL = "https://salty-dawn-90176.herokuapp.com/api/user/" //"http://localhost:4000/api/user/"
 
 export const findThreadsForBook = async (bookId) => {
     let url = THREAD_BY_BOOK_URL + bookId + '/thread/'
